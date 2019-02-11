@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_ver">Ver 0.12</string>
+    <string name="app_name">Stack-A-Mathic</string>
+    <string name="strings_op_default">+</string>
+    <string name="strings_equals">=</string>
+    <string name="strings_start">Start</string>
+    <string name="strings_stop">Close</string>
+    <string name="strings_result">Answer</string>
+    <string name="strings"/>
+    <string name="strings_submit">Go</string>
+    <string name="strings_winner">Winner</string>
+    <string name="strings_congrats">Congrats!</string>
+    <string name="level1">L1</string>
+    <string name="level2">L2</string>
+    <string name="level3">L3</string>
+    <string name="level4">L4</string>
+    <string name="level5">L5</string>
+</resources>
