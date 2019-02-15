@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_ver">Ver 0.12</string>
-    <string name="app_name">Stack-A-Mathic</string>
+    <string name="app_ver">Ver 0.31 - testing</string>
+    <string name="app_name">Stack-A-Maths</string>
+    <string name="test_mode">yes</string>
     <string name="strings_op_default">+</string>
     <string name="strings_equals">=</string>
     <string name="strings_start">Start</string>
@@ -9,10 +10,31 @@
     <string name="strings"/>
     <string name="strings_submit">Go</string>
     <string name="strings_winner">Winner</string>
-    <string name="strings_congrats">Congrats!</string>
+    <string name="strings_rules_title_congrats">Congratulations!</string>
+    <string name="strings_rules_game_completion">You have successfully completed the challenge.</string>
     <string name="level1">L1</string>
     <string name="level2">L2</string>
     <string name="level3">L3</string>
     <string name="level4">L4</string>
     <string name="level5">L5</string>
+    <string name="strings_seconds">s</string>
+    <string name="strings_wrong">Incorrect</string>
+    <string name="strings_no_response">No response</string>
+    <string name="strings_right">Correct</string>
+    <string name="strings_level_title_welcome">Welcome</string>
+    <string name="strings_level_title1">Level 1</string>
+    <string name="strings_level_title2">Level 2</string>
+    <string name="strings_level_title3">Level 3</string>
+    <string name="strings_level_title4">Level 4</string>
+    <string name="strings_level_title5">Level 5</string>
+    <string name="strings_rules_title">How to Play: </string>
+    <string name="strings_rules_level_a">Solve the problem and enter the answer using the keypad.  To move to next level, you need to get </string>
+    <string name="strings_rules_level_b"> right answers at a stretch. An incorrect answer will send you back to the beginning of the level.\n</string>
+    <string name="strings_analysis_title">Analysis</string>
+    <string name="strings_analysis_title_a">Analysis of </string>
+    <string name="strings_analysis_title_game_completion">Analysis of the game</string>
+    <string name="strings_analysis_default_data">At the end of the round, you will be provided a summary of your performance.</string>
+    <string name="strings_rules_timed_a">This is a timed level.  You have </string>
+    <string name="strings_rules_timed_b"> for each problem.\n</string>
+    <string name="strings_rules_welcome">A simple game which focuses on improving your accuracy and speed of solving problems.  You move up within the level for every correct answer.  Any incorrect answer will push you back to the start of the level.\nThere are 5 levels, Level 1 is not timed, but Level 2 onwards, each problem is timed; and in these timed levels, the available time gradually reduces as you progress.  The intent is to slowly but steadily improve your ability to solve quicker and accurately.\nHappy solving!\n</string>
 </resources>
