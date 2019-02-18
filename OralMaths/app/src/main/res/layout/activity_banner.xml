@@ -50,15 +50,120 @@
                     android:text="Analysis Data"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/textViewAnalysis" android:textSize="18sp"/>
+            <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewBlank"
+                            android:textSize="18sp"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewLevel"
+                            android:textSize="18sp" android:textAlignment="center" android:textStyle="bold"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewGame"
+                            android:textSize="18sp" android:layout_marginLeft="8sp" android:textStyle="bold"
+                            android:textAlignment="center"/>
+                </TableRow>
+                <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewTotalProblemsLabel"
+                            android:textSize="18sp" android:text="@string/strings_problems"/>
+                    <TextView
+                            android:text="Problems"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewProblemsValue"
+                            android:textSize="18sp" android:layout_marginLeft="8sp" android:textAlignment="center"/>
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewProblemViewGame"
+                            android:textSize="18sp" android:layout_marginLeft="8sp" android:textAlignment="center"/>
+                </TableRow>
+                <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewProblemsAttemptedLabel"
+                            android:textSize="18sp" android:text="@string/strings_attempted"/>
+                    <TextView
+                            android:text="Attempted"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewAttemptedValue"
+                            android:textSize="18sp" android:layout_marginLeft="8sp" android:textAlignment="center"/>
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewAttemptedValueGame"
+                            android:textSize="18sp" android:layout_marginLeft="8sp" android:textAlignment="center"/>
+                </TableRow>
+                <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewRightLabel"
+                            android:textSize="18sp" android:text="@string/strings_correct"/>
+                    <TextView
+                            android:text="Correct"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewRightValue"
+                            android:textSize="18sp" android:layout_marginLeft="8sp" android:textAlignment="center"/>
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewRightValueGame"
+                            android:textSize="18sp" android:layout_marginLeft="8sp" android:textAlignment="center"/>
+                </TableRow>
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <TextView
+                            android:text="@string/strings_fastest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewFastestLabel"
+                            android:textSize="18sp"/>
+                    <TextView
+                            android:text="fastest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewFastestValue"
+                            android:textSize="18sp" android:layout_marginLeft="8sp" android:textAlignment="center"/>
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewFastestValueGame"
+                            android:textSize="18sp" android:layout_marginLeft="8sp" android:textAlignment="center"/>
+                </TableRow>
+                <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewAverageLabel"
+                            android:textSize="18sp" android:text="@string/strings_average"/>
+                    <TextView
+                            android:text="Average"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewAverageValue"
+                            android:textSize="18sp" android:layout_marginLeft="8sp" android:textAlignment="center"/>
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textViewAverageValueGame"
+                            android:textSize="18sp" android:layout_marginLeft="8sp" android:textAlignment="center"/>
+                </TableRow>
+            </TableLayout>
         </LinearLayout>
     </ScrollView>
     <Button
             android:text="@string/strings_stop"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:id="@+id/buttonClose" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-    />
+            android:layout_marginBottom="16dp" app:layout_constraintBottom_toBottomOf="parent"/>
     <TextView
             android:text="@string/app_name"
             android:layout_width="wrap_content"

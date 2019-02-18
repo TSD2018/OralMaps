@@ -1,5 +1,6 @@
 package com.example.oralmaths
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -7,10 +8,14 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
+import android.util.Log
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import android.media.ToneGenerator
+import android.media.AudioManager
 
 private const val CURRENT_ARG1 = "Arg1"
 private const val CURRENT_ARG2 = "Arg2"
@@ -24,7 +29,7 @@ private const val CURRENT_ANSWER = "Answer"
 private const val CURRENT_LEVEL_TEXT_VIEW = "LevelView"
 private const val CURRENT_TIMER_TEXT_VIEW = "TimerView"
 
-private var level = Level
+var level = Level
 private var timefunctions = TimeFunctions
 private var tts: TextToSpeech? = null
 private var speak: Boolean = false
@@ -54,7 +59,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         val bClose = findViewById<ImageButton>(R.id.imageButtonClose)
         bClose.setOnClickListener {
-            finish()
+            if(timerState == TimerState.RUNNING)
+                timer.cancel()
+            val summaryIntent = Intent(this, Summary::class.java)
+            startActivityForResult(summaryIntent, 22)
+
         }
 
         textRight = findViewById(R.id.textViewRight)
@@ -66,26 +75,8 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         level.setLevel("default", this)
         displayMilestoneComplete()
-
         level.nextLevel(ELevel.LEVEL_INIT, this)
-
-
-
-
-
         setScoreBoard()
-
-/*        generateNumbers()
-        editResult.setOnEditorActionListener { _, actionId, _ ->
-            return@setOnEditorActionListener when (actionId) {
-                EditorInfo.IME_ACTION_DONE -> {
-                    processNext()
-                    true
-                }
-                else -> false
-            }
-        }
-    */
     }
 
 
@@ -105,7 +96,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun setScoreBoard() {
-        barProgress.progress = 0
         right = 0
         wrong = 0
         barProgress.max = level.maxScore()
@@ -113,6 +103,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         textWrong.text = "0"
         textViewLevel.text = level.myLevelText()
         levelCtr = 0
+        barProgress.progress = 0
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
@@ -130,15 +121,12 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val restoredLevelStr: String = savedInstanceState.getString(CURRENT_LEVEL)!!
         level.setLevel(restoredLevelStr, this)
 
-//        level = Level.valueOf(savedInstanceState?.getString(CURRENT_LEVEL))
         textLevel.text = level.toString()
 
         timerState = TimerState.valueOf(savedInstanceState.getString(CURRENT_TIMER_STATE)!!)
 
         textViewLevel.text = savedInstanceState.getString(CURRENT_LEVEL_TEXT_VIEW)
         textViewTimer.text = savedInstanceState.getString(CURRENT_TIMER_TEXT_VIEW)
-
-
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -158,18 +146,18 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun processNext(mCtx: Context) {
-
+        val analytics = AnswerAnalytics
         checkForTimer()
         timefunctions.endTimeStamp()
-        val timeTaken=timefunctions.timeTaken()
+        val timeTaken = timefunctions.timeTaken()
 
         if (isItRight(mCtx)) {
+            analytics.addRight(level.myLevelNumber(), timeTaken)
+            Log.d("Right", analytics.toString())
             if (level.checkLevelComplete(levelCtr)) {
                 level.nextLevel(level.myLevel(), this)
                 displayMilestoneComplete()
                 if (level.myLevel() != ELevel.LEVEL_WINNER) {
-//                    showNextLevel(level.myLevel())
-                    setScoreBoard()
                 } else {
                     finish()
                 }
@@ -181,6 +169,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 editResult.setText("")
             }
         } else {   /* had to include the else to avoid background processing of the timer and number generation when the banner activity is shown */
+            analytics.addTime(level.myLevelNumber(), timeTaken)
             generateNumbers()
 
             if (level.isTimedLevel())
@@ -189,14 +178,26 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        if(timerState == TimerState.RUNNING) {
+            timer.cancel()
+            timerState = TimerState.NOT_RUNNING
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        if (resultCode== Activity.RESULT_OK)
+            finish()
+        setScoreBoard()
         generateNumbers()
         if (level.isTimedLevel())
             startTimer(this)
         editResult.setText("")
 
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
 
@@ -204,6 +205,12 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         timer = object : CountDownTimer(level.timerValue().toLong(), 1000) {
             override fun onFinish() {
                 timerState = TimerState.NOT_RUNNING
+
+                val toneGen1 = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
+                toneGen1.startTone(ToneGenerator.MAX_VOLUME, 150)
+
+                val analytics = AnswerAnalytics
+                analytics.addToTimeOut(level.myLevelNumber())
                 processNext(mCtx)
             }
 
@@ -236,11 +243,13 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun checkForTimer() {
         if (timerState == TimerState.RUNNING) {
             timer.cancel()
-            timerState = TimerState.NOT_RUNNING
         }
+        timerState = TimerState.NOT_RUNNING
     }
 
     private fun displayMilestoneComplete() {
+        if(timerState == TimerState.RUNNING)
+            timer.cancel()
         val bannerIntent = Intent(this, BannerActivity::class.java)
 
         bannerIntent.putExtra(
@@ -262,12 +271,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun processRight(mCtx: Context) {
-        val timeTakenForRight=timefunctions.timeTaken()
+        levelCtr += 1
+        barProgress.progress = levelCtr
         remainingTime.text = mCtx.getString(R.string.strings_right)     //"Right"
         right += 1
         textRight.text = right.toString()
-        levelCtr += 1
-        barProgress.progress = levelCtr
     }
 
 

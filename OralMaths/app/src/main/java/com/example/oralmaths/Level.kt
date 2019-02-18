@@ -7,7 +7,7 @@ object Level {
     private var level: ELevel = ELevel.LEVEL_INIT
     private var levelText = ""
     private var timer: Boolean = false
-    private var maxScore = 25
+    private var maxScore = 20
     private var maxTimeout = 10 * 1000
     private var prevLevel: ELevel = ELevel.LEVEL_INIT
     private var prevLevelTitle = ""
@@ -41,7 +41,17 @@ object Level {
         return s
     }
 
-
+    fun myLevelNumber() : Int
+    {
+        return when(myLevel()){
+            ELevel.LEVEL_1 -> 1
+            ELevel.LEVEL_2 -> 2
+            ELevel.LEVEL_3 -> 3
+            ELevel.LEVEL_4 -> 4
+            ELevel.LEVEL_5 -> 5
+            else ->  0
+        }
+    }
     fun isTimedLevel(): Boolean {
         if (level == ELevel.LEVEL_INIT || level == ELevel.LEVEL_1)
             return false
@@ -72,7 +82,7 @@ object Level {
         return levelAnalysisData
     }
 
-    private fun getPrevLevelTitle(): String {
+    fun getPrevLevelTitle(): String {
         return prevLevelTitle
     }
 
@@ -80,8 +90,8 @@ object Level {
         prevLevel = ELevel.LEVEL_INIT
         prevLevelTitle = ""
         level = ELevel.LEVEL_1
-        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 3
-        else 25
+        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 5
+        else 20
         timer = false
         maxTimeout = 0
         levelTitle = mCtx.getString(R.string.strings_level_title1)   // "Level 1"
@@ -97,7 +107,7 @@ object Level {
         prevLevel = ELevel.LEVEL_1
         prevLevelTitle = levelTitle
         level = ELevel.LEVEL_2
-        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 3 else 25
+        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 5 else 20
         timer = true
         maxTimeout = 10 * 1000 // (10 seconds)
         levelTitle = mCtx.getString(R.string.strings_level_title2)   // "Level 2"
@@ -116,10 +126,11 @@ object Level {
         prevLevel = ELevel.LEVEL_2
         prevLevelTitle = levelTitle
         level = ELevel.LEVEL_3
-        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 3
-        else 25
+        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 5
+        else 20
         timer = true
-        maxTimeout = 9 * 1000 // (9 seconds)
+        val analytics = AnswerAnalytics
+        maxTimeout = analytics.averageTime(forRight = false, l=0).toInt() + 1000 // 9 * 1000 // (9 seconds)
         levelTitle = mCtx.getString(R.string.strings_level_title3)   // "Level 3"
         levelRules = mCtx.getString(R.string.strings_rules_title) + " ${getTitle()}"  // "How to Play - "
         levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +
@@ -136,10 +147,12 @@ object Level {
         prevLevel = ELevel.LEVEL_3
         prevLevelTitle = levelTitle
         level = ELevel.LEVEL_4
-        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 3
-        else 25
+        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 5
+        else 20
         timer = true
-        maxTimeout = 8 * 1000 // (8 seconds)
+        val analytics = AnswerAnalytics
+        maxTimeout = analytics.averageTime(forRight = true, l=0).toInt() + 1000 // 9 * 1000 // (9 seconds)
+//        maxTimeout = 8 * 1000 // (8 seconds)
         levelTitle = mCtx.getString(R.string.strings_level_title4)   // "Level 4"
         levelRules = mCtx.getString(R.string.strings_rules_title) + " ${getTitle()}"  // "How to Play - "
         levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +
@@ -156,10 +169,12 @@ object Level {
         prevLevel = ELevel.LEVEL_4
         prevLevelTitle = levelTitle
         level = ELevel.LEVEL_5
-        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 3
-        else 25
+        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 5
+        else 20
         timer = true
-        maxTimeout = 7 * 1000 // (7 seconds)
+        val analytics = AnswerAnalytics
+        maxTimeout = analytics.averageTime(forRight = true, l=0).toInt() // 9 * 1000 // (9 seconds)
+//        maxTimeout = 7 * 1000 // (7 seconds)
         levelTitle = mCtx.getString(R.string.strings_level_title4)   // "Level 5"
         levelRules = mCtx.getString(R.string.strings_rules_title) + " ${getTitle()}"  // "How to Play - "
         levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +
