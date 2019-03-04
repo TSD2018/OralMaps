@@ -4,15 +4,26 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.series.BarGraphSeries
+import com.jjoe64.graphview.series.DataPoint
+import com.jjoe64.graphview.series.LineGraphSeries
 
 class Summary : AppCompatActivity() {
+
+    private val TAG = "Summary"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_summary)
+
+        val lastLevelView: TextView = findViewById(R.id.textViewCloseTitle)
+        lastLevelView.text = level.getLevelCompletedString()
 
         val problemPresentedL1: TextView = findViewById(R.id.textViewPresentedL1)
         val attemptedL1: TextView = findViewById(R.id.textViewAttemptedL1)
@@ -99,6 +110,42 @@ class Summary : AppCompatActivity() {
         avgGame.text = String.format("%.1f", analytics.averageTime(false, 0, true))
 //        fastestGame.text = analytics.fastestTime(0, true).toString()
 //        avgGame.text = analytics.averageTime(false, 0, true).toString()
+
+        val graph1 = findViewById<View>(R.id.graph1) as GraphView
+        val series1 = BarGraphSeries<DataPoint>()
+
+        // Attempt Rate = Attempted / Problems
+
+
+        series1.appendData(DataPoint(1.0, analytics.getAttemptRate(1)), true, 5)
+        series1.appendData(DataPoint(2.0, analytics.getAttemptRate(2)), true, 5)
+        series1.appendData(DataPoint(3.0, analytics.getAttemptRate(3)), true, 5)
+        series1.appendData(DataPoint(4.0, analytics.getAttemptRate(4)), true, 5)
+        series1.appendData(DataPoint(5.0, analytics.getAttemptRate(5)), true, 5)
+        series1.spacing = 50
+//        series1.isAnimated = true
+
+        graph1.addSeries(series1)
+
+        val graph2 = findViewById<View>(R.id.graph2) as GraphView
+        val series2 = BarGraphSeries<DataPoint>()
+
+        // Strike Rate = Right Answers / Problems
+
+        Log.d(TAG, "StrikeRate for value 1 = ${analytics.getStrikeRate(1)}")
+        series2.appendData(DataPoint(1.0, analytics.getStrikeRate(1)), true, 5)
+        series2.appendData(DataPoint(2.0, analytics.getStrikeRate(2)), true, 5)
+        series2.appendData(DataPoint(3.0, analytics.getStrikeRate(3)), true, 5)
+        series2.appendData(DataPoint(4.0, analytics.getStrikeRate(4)), true, 5)
+        series2.appendData(DataPoint(5.0, analytics.getStrikeRate(5)), true, 5)
+        series2.spacing = 50
+        graph2.addSeries(series2)
+
+
+        // Endurance Rate = Number of continous streak / Number of times started - TBD
+
+        // Speed Chart: Show Timeout period, fastest right, mean right
+
 
         val bContinue = findViewById<Button>(R.id.buttonContinue)
         bContinue.setOnClickListener {

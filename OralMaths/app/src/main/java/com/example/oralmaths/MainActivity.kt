@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         textLevel = findViewById(R.id.textViewLevel)
 
         level.setLevel("default", this)
-        displayMilestoneComplete()
+        startUp()
         level.nextLevel(ELevel.LEVEL_INIT, this)
         setScoreBoard()
     }
@@ -104,6 +104,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         textViewLevel.text = level.myLevelText()
         levelCtr = 0
         barProgress.progress = 0
+        AnswerAnalytics.addToAttemptCount(level.myLevelNumber())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
@@ -200,7 +201,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
-
     private fun startTimer(mCtx: Context) {
         timer = object : CountDownTimer(level.timerValue().toLong(), 1000) {
             override fun onFinish() {
@@ -247,26 +247,32 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         timerState = TimerState.NOT_RUNNING
     }
 
+    private fun startUp()
+    {
+        val startUpIntent = Intent(this, BannerActivity::class.java)
+        startUpIntent.putExtra("MAIN_TITLE", level.getTitle())
+        startUpIntent.putExtra("RULES", level.getRules())
+        startUpIntent.putExtra("RULES_TEXT", level.getRulesText())
+        startActivityForResult(startUpIntent, 10)
+    }
+
     private fun displayMilestoneComplete() {
         if(timerState == TimerState.RUNNING)
             timer.cancel()
-        val bannerIntent = Intent(this, BannerActivity::class.java)
 
-        bannerIntent.putExtra(
-            "MAIN_TITLE",
+        val activityCompleteIntent = Intent(this, ActivityComplete::class.java)
+        activityCompleteIntent.putExtra(            "MAIN_TITLE",
             level.getTitle()
-        ) //"WELCOME") // || Congrats Level N Completed || Congratulations Winner
-        bannerIntent.putExtra("RULES", level.getRules()) // "How to Play") // || Next Level N Rules ||  ""
-        bannerIntent.putExtra("RULES_TEXT", level.getRulesText()) // "Big Story") // A shorter story || ""
-        bannerIntent.putExtra(
+        )
+        activityCompleteIntent.putExtra(
             "ANALYSIS",
             level.getAnalysis()
         ) // "ANALYSIS") // Current Level N-1|| Complete game analysis
-        bannerIntent.putExtra(
+        activityCompleteIntent.putExtra(
             "ANALYSIS_DATA",
             level.getAnalysisData()
         ) // "You will be provided a detailed report on your game") // Current Level N-1|| Complete game analysis
-        startActivityForResult(bannerIntent, 10)
+        startActivityForResult(activityCompleteIntent, 10)
 //    startActivity(bannerIntent)
     }
 
@@ -285,6 +291,8 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         textWrong.text = wrong.toString()
         levelCtr = 0
         barProgress.progress = 0
+        AnswerAnalytics.addToAttemptCount(level.myLevelNumber())
+        AnswerAnalytics.addError(level.myLevelNumber())
     }
 
     override fun onInit(status: Int) {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_ver">Ver 0.44 testing</string>
+    <string name="app_ver">Ver 0.67 testing</string>
     <string name="app_name">Stack-A-Maths</string>
     <string name="test_mode">yes</string>
     <string name="strings_op_default">+</string>
@@ -27,6 +27,11 @@
     <string name="strings_level_title3">Level 3</string>
     <string name="strings_level_title4">Level 4</string>
     <string name="strings_level_title5">Level 5</string>
+    <string name="strings_level_title1_complete">Level 1 Complete</string>
+    <string name="strings_level_title2_complete">Level 2 Complete</string>
+    <string name="strings_level_title3_complete">Level 3 Complete</string>
+    <string name="strings_level_title4_complete">Level 4 Complete</string>
+    <string name="strings_level_title5_complete">Level 5 Complete</string>
     <string name="strings_rules_title">How to Play:</string>
     <string name="strings_rules_level_a">Solve the problem and enter the answer using the keypad. To move to next level,
         you need to get
@@ -59,4 +64,7 @@
     <string name="strings_summary_so_far">Summary so far</string>
     <string name="strings_quit">Quit</string>
     <string name="strings_continue">Continue</string>
+    <string name="strings_next">Next</string>
+    <string name="strings_strike_rate">Strike Rate</string>
+    <string name="strings_attempt_rate">Attempt Rate</string>
 </resources>
