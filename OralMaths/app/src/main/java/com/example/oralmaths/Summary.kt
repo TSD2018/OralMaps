@@ -1,18 +1,23 @@
 package com.example.oralmaths
 
+import android.app.Activity.RESULT_OK
+import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import com.facebook.FacebookSdk
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.BarGraphSeries
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
+import java.io.File
 
 class Summary : AppCompatActivity() {
 
@@ -145,6 +150,29 @@ class Summary : AppCompatActivity() {
         // Endurance Rate = Number of continous streak / Number of times started - TBD
 
         // Speed Chart: Show Timeout period, fastest right, mean right
+
+        val bShare = findViewById<ImageButton>(R.id.imageButtonShare)
+
+        bShare.setOnClickListener{
+            val shareIntent = Intent()
+            shareIntent.action = Intent.ACTION_SEND
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "I am using Sum#it")
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "testing")
+            shareIntent.type = "text/plain"
+
+            startActivity(Intent.createChooser(shareIntent, "Share to..."))
+
+//            val shareImageIntent = Intent()
+//            shareImageIntent.action = Intent.ACTION_SEND
+//            shareImageIntent.type = "image/*"
+//            val imgPath: String = Environment.getExternalStorageDirectory().path + ("/sumit.png")
+//            val img = File(imgPath)
+//
+//            val uri = Uri.fromFile(img)
+//            shareImageIntent.putExtra(Intent.EXTRA_STREAM, uri)
+//            startActivity(Intent.createChooser(shareImageIntent,"Sharing..."))
+
+        }
 
 
         val bContinue = findViewById<Button>(R.id.buttonContinue)

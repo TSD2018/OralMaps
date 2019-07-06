@@ -3,6 +3,9 @@ package com.example.oralmaths
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import android.content.pm.PackageManager.GET_SIGNATURES
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +19,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import android.media.ToneGenerator
 import android.media.AudioManager
+import android.support.annotation.RequiresApi
+import android.support.v4.app.ActivityCompat.startActivityForResult
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import java.security.Signature
+import android.util.Base64
+
 
 private const val CURRENT_ARG1 = "Arg1"
 private const val CURRENT_ARG2 = "Arg2"
@@ -53,9 +63,12 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var remainingTime: TextView
     private lateinit var textLevel: TextView
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        printHashKey()
 
         val bClose = findViewById<ImageButton>(R.id.imageButtonClose)
         bClose.setOnClickListener {
@@ -78,6 +91,30 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         level.nextLevel(ELevel.LEVEL_INIT, this)
         setScoreBoard()
     }
+
+    @RequiresApi(Build.VERSION_CODES.P)
+    private fun printHashKey() {
+    try{
+        if(Build.VERSION.SDK_INT >= 28) {
+            val info = getPackageManager().getPackageInfo(
+                "com.example.oralmaths",
+                PackageManager.GET_SIGNING_CERTIFICATES
+            )
+            val signatures = info.signingInfo.apkContentsSigners
+            val md = MessageDigest.getInstance("SHA")
+
+            for (signature in signatures) {
+                md.update(signature.toByteArray())
+                var signatureBase64 = String(Base64.encode(md.digest(), Base64.DEFAULT))
+//                var signatureBase64 = Base64.getEncoder(md.digest(), Base64) // String(Base64.encode(md.digest(), Base64.DEFAULT))
+                Log.d("KEYHASH", signatureBase64)
+            }
+        }
+        } catch(e: PackageManager.NameNotFoundException) {
+        } catch (e: NoSuchAlgorithmException){
+        }
+    }
+
 
 
     override fun onStart() {

@@ -151,13 +151,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@android:drawable/ic_menu_sort_by_size"
-            android:id="@+id/imageButtonClose"
-            app:layout_constraintEnd_toStartOf="@+id/buttonNext" android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toTopOf="@+id/buttonNext"/>
-
     <Button
             android:text="@string/strings_next"
             android:layout_width="wrap_content"
