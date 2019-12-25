@@ -1,21 +1,17 @@
 package com.example.oralmaths
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 
-
 class BannerActivity : AppCompatActivity() {
-
-//    val TAG = "BannerActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_banner)
-
 
         val titleView: TextView = findViewById(R.id.textViewWelcomeAndCongrats)
         val rulesView: TextView = findViewById(R.id.textViewLevelRules)
@@ -27,16 +23,27 @@ class BannerActivity : AppCompatActivity() {
 
         val bClose: Button = findViewById(R.id.buttonClose)
         bClose.setOnClickListener {
+            if (level.myLevel() == ELevel.LEVEL_WINNER) {
+                displaySummary()
+            }
+            else{
+                finish()
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode== Activity.RESULT_OK){
+            //           displaySummary()
             finish()
         }
+    }
 
-        val bSummary = findViewById<ImageButton>(R.id.imageButtonSummary)
-        bSummary.setOnClickListener {
-            val summaryIntent = Intent(this, Summary::class.java)
-            startActivity(summaryIntent)
-            finish()
-        }
-
-
+    private fun displaySummary()
+    {
+        val summaryIntent = Intent(this, Summary::class.java)
+        startActivityForResult(summaryIntent, 12)
     }
 }

@@ -64,10 +64,5 @@
             android:id="@+id/textViewVersion" app:layout_constraintStart_toStartOf="@+id/textViewProduct"
             app:layout_constraintTop_toBottomOf="@+id/textViewProduct"
             app:layout_constraintBottom_toBottomOf="@+id/buttonClose"/>
-    <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@android:drawable/ic_menu_sort_by_size"
-            android:id="@+id/imageButtonSummary"
-            app:layout_constraintTop_toTopOf="@+id/buttonClose" app:layout_constraintEnd_toStartOf="@+id/buttonClose"
-            android:layout_marginEnd="16dp"/>
+
 </android.support.constraint.ConstraintLayout>

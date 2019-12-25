@@ -3,18 +3,18 @@ package com.example.oralmaths
 import android.util.Log
 
 object AnswerAnalytics {
-    private val TAG = "AnswerAnalytics"
+    private const val TAG = "AnswerAnalytics"
 
     // Offset 0 = game, 1 = L1, 2 = L2, 3 = L3, 4 = L4, 5 = L5
-    var timeTaken: LongArray = longArrayOf(0, 0, 0, 0, 0, 0)
-    var timeTakenForRight: LongArray = longArrayOf(0, 0, 0, 0, 0, 0)
-    var totalProblems: IntArray = intArrayOf(0, 0, 0, 0, 0, 0)
-    var totalProblemsRight: IntArray = intArrayOf(0, 0, 0, 0, 0, 0)
-    var totalTimeout: IntArray = intArrayOf(0, 0, 0, 0, 0, 0)
-    var fastestTime: LongArray = longArrayOf(0, 0, 0, 0, 0, 0)
-    var slowestTime: LongArray = longArrayOf(0, 0, 0, 0, 0, 0)
-    var attemptCount: IntArray =  intArrayOf(0, 0, 0, 0, 0, 0)
-    var totalErrors: IntArray = intArrayOf(0, 0, 0, 0, 0, 0)
+    private var timeTaken = longArrayOf(0, 0, 0, 0, 0, 0)
+    private var timeTakenForRight = longArrayOf(0, 0, 0, 0, 0, 0)
+    private var totalProblems = intArrayOf(0, 0, 0, 0, 0, 0)
+    private var totalProblemsRight = intArrayOf(0, 0, 0, 0, 0, 0)
+    private var totalTimeout = intArrayOf(0, 0, 0, 0, 0, 0)
+    private var fastestTime = longArrayOf(0, 0, 0, 0, 0, 0)
+    private var slowestTime = longArrayOf(0, 0, 0, 0, 0, 0)
+    private var attemptCount =  intArrayOf(0, 0, 0, 0, 0, 0)
+    private var totalErrors = intArrayOf(0, 0, 0, 0, 0, 0)
 
     override fun toString(): String {
         return """
@@ -65,35 +65,17 @@ object AnswerAnalytics {
     }
 
     fun getStrikeRate(l: Int) : Double {
-
-        val ret: Double
-
-        if (totalProblems[l] != 0) {
-            ret = (totalProblemsRight[l].toDouble() / totalProblems[l].toDouble()) * 100.0
-        } else ret = 0.0
+        val ret: Double = if (totalProblems[l] != 0) {
+            (totalProblemsRight[l].toDouble() / totalProblems[l].toDouble()) * 100.0
+        } else 0.0
 
         Log.d(
             TAG,
             "getStrikeRate = $ret, totalProblemsRight[$l]/totalProblems[$l] = ${totalProblemsRight[l]} / ${totalProblems[l]}"
         )
-
         return ret
     }
 
-    /*
-
-        Log.d(
-            TAG,
-            "getStrikeRate: l=[$l], totalProblems = [${totalProblems[l]}], totalProblemsRight = [${totalProblemsRight[l]}"
-        )
-        return if (totalProblems[l] == 0) {
-            0.0
-        } else {
-            Log.d(TAG, "return from getStrikeRate = ${((totalProblemsRight[l] / totalProblems[l]) * 100).toDouble()}")
-            (totalProblemsRight[l] / totalProblems[l]) * 100.0
-        }
-    }
-*/
     fun addToTimeOut(l: Int) {
         totalTimeout[l] += 1
         totalTimeout[0] += 1
@@ -109,7 +91,7 @@ object AnswerAnalytics {
         return fastestTime[l].toFloat()
     }
 
-    fun slowestTime(l: Int = 0, sec: Boolean = false): Float {
+    private fun slowestTime(l: Int = 0, sec: Boolean = false): Float {
         if (sec)
             return (slowestTime[l] / 1000).toFloat()
         return slowestTime[l].toFloat()
@@ -200,7 +182,7 @@ object AnswerAnalytics {
     }
 
     fun getAttemptsCount(l: Int): Int {
-        // Everytime the progress bar is reset to 0 on timeout or error, increment this counter (counter starts at 1)
+        // Every time the progress bar is reset to 0 on timeout or error, increment this counter (counter starts at 1)
         // also capture the last right score and result = timeout or incorrect answer.
         //
         // In this class, capture this value for each level.

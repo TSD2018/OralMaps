@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_ver">Ver 0.69 testing</string>
-    <string name="app_name">Sum-it</string>
+    <string name="app_ver">Ver 0.97 testing</string>
+    <string name="app_name">Sum.it</string>
     <string name="test_mode">yes</string>
+    <string name="problems_per_level">2</string>
     <string name="strings_op_default">+</string>
     <string name="strings_equals">=</string>
     <string name="strings_start">Start</string>
@@ -11,7 +12,7 @@
     <string name="strings_submit">Go</string>
     <string name="strings_winner">Winner</string>
     <string name="strings_rules_title_congrats">Congratulations!</string>
-    <string name="strings_rules_game_completion">You have successfully completed the challenge.</string>
+    <string name="strings_rules_game_completion">Well played!\n\n\nYou have successfully completed the challenge.\n\n\nYou can review your game score in the next screen.</string>
     <string name="level1">L1</string>
     <string name="level2">L2</string>
     <string name="level3">L3</string>
@@ -33,39 +34,46 @@
     <string name="strings_level_title4_complete">Level 4 Complete</string>
     <string name="strings_level_title5_complete">Level 5 Complete</string>
     <string name="strings_rules_title">How to Play:</string>
-    <string name="strings_rules_level_a">Solve the problem and enter the answer using the keypad. To move to next level,
+    <string name="strings_rules_level_a">Add the two numbers and enter the answer using the keypad.\nTo move to next
+        level,
         you need to get
     </string>
-    <string name="strings_rules_level_b">right answers at a stretch. An incorrect answer will send you back to the
+    <string name="strings_rules_level_b">right answers in a single stretch. An incorrect answer will send you back to
+        the
         beginning of the level.\n
     </string>
     <string name="strings_analysis_title">Analysis</string>
     <string name="strings_analysis_title_a">Analysis of</string>
     <string name="strings_analysis_title_game_completion">Analysis of the game</string>
-    <string name="strings_analysis_default_data">At the end of the round, you will be provided a summary of your
-        performance.
+    <string name="strings_analysis_default_data">\nDon\'t forget to check your performance summary.
     </string>
-    <string name="strings_rules_timed_a">This is a timed level. You have</string>
-    <string name="strings_rules_timed_b">for each problem.\n</string>
-    <string name="strings_rules_welcome">A simple game which focuses on improving your accuracy and speed of solving
-        problems. You move up within the level for every correct answer. Any incorrect answer will push you back to the
-        start of the level.\nThere are 5 levels, Level 1 is not timed, but Level 2 onwards, each problem is timed; and
-        in these timed levels, the available time gradually reduces as you progress. The intent is to slowly but
-        steadily improve your ability to solve quicker and accurately.\nHappy solving!\n
+    <string name="strings_rules_timed_a">Timed level! You have</string>
+    <string name="strings_rules_timed_b">for each problem.\n\n</string>
+    <string name="strings_rules_welcome">All you need to do is add two numbers. Use the keypad to enter the answer.
+        Right answers will move you closer to end of the level. Incorrect answer will take you to the beginning of the
+        level. \n\nIn total, there are 5 levels. Level 1 is not timed, level 2 onwards is timed, available time is
+        gradually reduced with each level depending on your performance. \n\nThe objective is to improve your
+        addition skills in terms of accuracy and speed. \n\nHappy solving!\n
     </string>
-    <string name="strings_problems">Problems\nPresented:</string>
+    <string name="strings_problems">Problems:</string>
     <string name="strings_attempted">Attempted:</string>
     <string name="strings_correct">Correct:</string>
-    <string name="strings_average">Response\nTime (avg):</string>
-    <string name="strings_fastest">Fastest\nResponse:</string>
+    <string name="strings_average">Avg time:</string>
+    <string name="strings_fastest">Fastest:</string>
     <string name="strings_header_level">Level</string>
+    <string name="strings_header_level_part1">Le</string>
+    <string name="strings_header_level_part2">vel</string>
     <string name="strings_header_game">Game</string>
+    <string name="strings_header_game_part1">Ga</string>
+    <string name="strings_header_game_part2">me</string>
     <string name="strings_game_summary">Game Summary</string>
     <string name="strings_summary_so_far">Summary so far</string>
-    <string name="strings_quit">Quit</string>
+    <string name="strings_quit">Close</string>
     <string name="strings_continue">Continue</string>
     <string name="strings_next">Next</string>
     <string name="strings_strike_rate">Strike Rate</string>
     <string name="strings_attempt_rate">Attempt Rate</string>
+    <string name="strings_summary">Summary</string>
+    <string name="strings_completed"> completed</string>
     <string name="facebook_app_id">451721482255483</string>
 </resources>

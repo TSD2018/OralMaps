@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/textViewSnapshotTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/textViewLevelSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/com_facebook_blue"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSnapshotTitle" />
+    <TextView
+            android:text="@string/app_ver"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp" android:id="@+id/textView6" android:layout_weight="1"
+            android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="16dp" app:layout_constraintBottom_toBottomOf="parent"/>
+    <TextView
+            android:text="@string/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView7" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView6"
+    />
+    <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tableLayout" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/textViewLevelSummary">
+
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+            <TextView
+                    android:id="@+id/textViewBlank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Score"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            <TextView
+                    android:id="@+id/textViewLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/strings_header_level_part1"
+                    android:textAlignment="textEnd"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            <TextView
+                    android:id="@+id/textViewLevelPart2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/strings_header_level_part2"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textViewBlank3"/>
+
+            <TextView
+                    android:id="@+id/textViewGame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/strings_header_game_part1"
+                    android:textAlignment="textEnd"
+                    android:textSize="24sp"
+                    android:textStyle="italic" />
+
+            <TextView
+                    android:id="@+id/textViewGamePart2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/strings_header_game_part2"
+                    android:textSize="24sp"
+                    android:textStyle="italic" />
+        </TableRow>
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+            <TextView
+                    android:id="@+id/textViewAttemptRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\nAttempt:\n"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            <ProgressBar
+                    android:id="@+id/circularProgressbarAttempt"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="50"
+                    android:layout_centerInParent="true"
+                    android:progressDrawable="@drawable/circular"
+                    android:secondaryProgress="100"
+            />
+
+            <TextView
+                    android:id="@+id/textViewAttemptPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="18sp" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textViewBlank5"/>
+            <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="50"
+                    android:layout_centerInParent="true"
+                    android:progressDrawable="@drawable/circular"
+                    android:secondaryProgress="100"
+                    android:id="@+id/progressBarAttemptGame"/>
+
+            <TextView
+                    android:id="@+id/textViewAttemptGamePercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="18sp"
+                    android:textStyle="italic" />
+        </TableRow>
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+            <TextView
+                    android:id="@+id/textViewStrikeRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\nStrike:\n"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="50"
+                    android:layout_centerInParent="true"
+                    android:progressDrawable="@drawable/circular"
+                    android:secondaryProgress="100"
+                    android:id="@+id/progressBarStrike"/>
+
+            <TextView
+                    android:id="@+id/textViewStrikeRatePercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="18sp" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textViewBlank8"/>
+            <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="50"
+                    android:layout_centerInParent="true"
+                    android:progressDrawable="@drawable/circular"
+                    android:secondaryProgress="100"
+                    android:id="@+id/progressBarStrikeGame"/>
+
+            <TextView
+                    android:id="@+id/textViewGameStrikeRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="18sp"
+                    android:textStyle="italic" />
+        </TableRow>
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+            <TextView
+                    android:id="@+id/textViewFastest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fastest:\n"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            <TextView
+                    android:id="@+id/textViewFastestLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textAlignment="textEnd"
+                    android:textSize="18sp" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textViewBlank9" android:text="secs"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textViewBlank10"/>
+
+            <TextView
+                    android:id="@+id/textViewGamesFastest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textAlignment="textEnd"
+                    android:textSize="18sp"
+                    android:textStyle="italic" />
+            <TextView
+                    android:text="secs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textView5" android:textStyle="italic"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:id="@+id/textViewAverage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Average:\n"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            <TextView
+                    android:id="@+id/textViewAverageResponse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textAlignment="textEnd"
+                    android:textSize="18sp" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textViewBlank11" android:text="secs"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textViewBlank12"/>
+
+            <TextView
+                    android:id="@+id/textViewGameAverageResponse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textAlignment="textEnd"
+                    android:textSize="18sp"
+                    android:textStyle="italic" />
+            <TextView
+                    android:text="secs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textView2" android:textStyle="italic"/>
+        </TableRow>
+    </TableLayout>
+    <Button
+            android:text="Next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonCloseSnapShot" android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toTopOf="@+id/textView7"/>
+
+</android.support.constraint.ConstraintLayout>

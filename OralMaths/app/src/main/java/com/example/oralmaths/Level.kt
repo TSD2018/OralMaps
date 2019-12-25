@@ -2,7 +2,6 @@ package com.example.oralmaths
 
 import android.content.Context
 
-
 object Level {
     private var level: ELevel = ELevel.LEVEL_INIT
     private var levelText = ""
@@ -50,6 +49,7 @@ object Level {
             ELevel.LEVEL_3 -> 3
             ELevel.LEVEL_4 -> 4
             ELevel.LEVEL_5 -> 5
+            ELevel.LEVEL_WINNER -> 6    // KARTIK_3_DEC_2019
             else ->  0
         }
     }
@@ -95,8 +95,7 @@ object Level {
         prevLevel = ELevel.LEVEL_INIT
         prevLevelTitle = ""
         level = ELevel.LEVEL_1
-        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 5
-        else 20
+        maxScore = mCtx.getString(R.string.problems_per_level).toInt()
         timer = false
         maxTimeout = 0
         levelCompleted = ""
@@ -113,7 +112,7 @@ object Level {
         prevLevel = ELevel.LEVEL_1
         prevLevelTitle = levelTitle
         level = ELevel.LEVEL_2
-        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 5 else 20
+        maxScore = mCtx.getString(R.string.problems_per_level).toInt()
         timer = true
         maxTimeout = 10 * 1000 // (10 seconds)
         levelCompleted = mCtx.getString(R.string.strings_level_title1_complete)
@@ -122,7 +121,6 @@ object Level {
         levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +
                 mCtx.getString(R.string.strings_rules_timed_b) +
                 mCtx.getString(R.string.strings_rules_level_a) + " ${maxScore()} " + mCtx.getString(R.string.strings_rules_level_b)
-        // "You get ${maxTimeout/1000} seconds to solve each problem.  You need to get continuous ${maxScore} answers to move to the next level."
         levelAnalysis = mCtx.getString(R.string.strings_analysis_title_a) + " ${getPrevLevelTitle()}"  // "Analysis of "
         levelAnalysisData =
             mCtx.getString(R.string.strings_analysis_default_data)  //"You will be provided a detailed report on your game"
@@ -133,8 +131,7 @@ object Level {
         prevLevel = ELevel.LEVEL_2
         prevLevelTitle = levelTitle
         level = ELevel.LEVEL_3
-        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 5
-        else 20
+        maxScore = mCtx.getString(R.string.problems_per_level).toInt()
         timer = true
         val analytics = AnswerAnalytics
         maxTimeout = analytics.averageTime(forRight = false, l=0).toInt() + 1000 // 9 * 1000 // (9 seconds)
@@ -144,7 +141,6 @@ object Level {
         levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +
                 mCtx.getString(R.string.strings_rules_timed_b) +
                 mCtx.getString(R.string.strings_rules_level_a) + " ${maxScore()} " + mCtx.getString(R.string.strings_rules_level_b)
-//        levelRulesText = "You get ${maxTimeout/1000} seconds to solve each problem.  You need to get continuous ${maxScore} answers to move to the next level."
         levelAnalysis = mCtx.getString(R.string.strings_analysis_title_a) + " ${getPrevLevelTitle()}"  // "Analysis of "
         levelAnalysisData =
             mCtx.getString(R.string.strings_analysis_default_data)  //"You will be provided a detailed report on your game"
@@ -156,18 +152,15 @@ object Level {
         prevLevelTitle = levelTitle
         levelCompleted = mCtx.getString(R.string.strings_level_title3_complete)
         level = ELevel.LEVEL_4
-        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 5
-        else 20
+        maxScore = mCtx.getString(R.string.problems_per_level).toInt()
         timer = true
         val analytics = AnswerAnalytics
         maxTimeout = analytics.averageTime(forRight = true, l=0).toInt() + 1000 // 9 * 1000 // (9 seconds)
-//        maxTimeout = 8 * 1000 // (8 seconds)
         levelTitle = mCtx.getString(R.string.strings_level_title4)   // "Level 4"
         levelRules = mCtx.getString(R.string.strings_rules_title) + " ${getTitle()}"  // "How to Play - "
         levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +
                 mCtx.getString(R.string.strings_rules_timed_b) +
                 mCtx.getString(R.string.strings_rules_level_a) + " ${maxScore()} " + mCtx.getString(R.string.strings_rules_level_b)
-//        levelRulesText = "You get ${maxTimeout/1000} seconds to solve each problem.  You need to get continuous ${maxScore} answers to move to the next level."
         levelAnalysis = mCtx.getString(R.string.strings_analysis_title_a) + " ${getPrevLevelTitle()}"  // "Analysis of "
         levelAnalysisData =
             mCtx.getString(R.string.strings_analysis_default_data)  //"You will be provided a detailed report on your game"
@@ -179,12 +172,10 @@ object Level {
         prevLevelTitle = levelTitle
         levelCompleted = mCtx.getString(R.string.strings_level_title4_complete)
         level = ELevel.LEVEL_5
-        maxScore = if (mCtx.getString(R.string.test_mode) == "yes") 5
-        else 20
+        maxScore = mCtx.getString(R.string.problems_per_level).toInt()
         timer = true
         val analytics = AnswerAnalytics
         maxTimeout = analytics.averageTime(forRight = true, l=0).toInt() // 9 * 1000 // (9 seconds)
-//        maxTimeout = 7 * 1000 // (7 seconds)
         levelTitle = mCtx.getString(R.string.strings_level_title5)   // "Level 5"
         levelRules = mCtx.getString(R.string.strings_rules_title) + " ${getTitle()}"  // "How to Play - "
         levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +
@@ -198,7 +189,7 @@ object Level {
 
     private fun setLevelWinner(mCtx: Context) {
         prevLevel = ELevel.LEVEL_5
-        prevLevelTitle = ""
+        prevLevelTitle = levelTitle // ""
         level = ELevel.LEVEL_WINNER
         levelCompleted = mCtx.getString(R.string.strings_level_title5_complete)
         levelTitle = mCtx.getString(R.string.strings_winner)    // "Winner!"
@@ -219,12 +210,6 @@ object Level {
         levelTitle = mCtx.getString(R.string.strings_level_title_welcome)   //"Welcome"
         levelRules = mCtx.getString(R.string.strings_rules_title)   // "How to Play"
         levelRulesText = mCtx.getString(R.string.strings_rules_welcome)
-//        levelRulesText = "A simple game which focuses on your accuracy and speed of solving problems.  " +
-//                "Solve each problem.  Every correct answer, will increase your Right score by 1 and progress " +
-//                "you closer to the completion of the Level.  Incorrect answers, will reset your level progress " +
-//                "and increment the Wrong answer. \nThere are 5 levels, Level 1 is not timed, but Level 2 onwards, " +
-//                "each problem is timed.  No response will be treated as an incorrect answer." +
-//                "\nThe time duration per problem available decreases as you progress up your level."
         levelAnalysis = mCtx.getString(R.string.strings_analysis_title) //  "Analysis"
         levelAnalysisData =
             mCtx.getString(R.string.strings_analysis_default_data)  // "You will be provided a detailed report on your game"
@@ -283,6 +268,4 @@ object Level {
             }
         }
     }
-
-
 }

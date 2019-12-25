@@ -1,12 +1,10 @@
 package com.example.oralmaths
 
-import android.app.Activity.RESULT_OK
-import android.app.PendingIntent.getActivity
+
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -16,8 +14,9 @@ import com.facebook.FacebookSdk
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.BarGraphSeries
 import com.jjoe64.graphview.series.DataPoint
-import com.jjoe64.graphview.series.LineGraphSeries
-import java.io.File
+import android.graphics.Bitmap
+
+
 
 class Summary : AppCompatActivity() {
 
@@ -26,9 +25,6 @@ class Summary : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_summary)
-
-        val lastLevelView: TextView = findViewById(R.id.textViewCloseTitle)
-        lastLevelView.text = level.getLevelCompletedString()
 
         val problemPresentedL1: TextView = findViewById(R.id.textViewPresentedL1)
         val attemptedL1: TextView = findViewById(R.id.textViewAttemptedL1)
@@ -73,48 +69,35 @@ class Summary : AppCompatActivity() {
         fastestL1.text = String.format("%.1f", analytics.fastestTime(1, true))
         avgL1.text = String.format("%.1f", analytics.averageTime(false, 1, true))
 
-//        fastestL1.text = analytics.fastestTime(1, true).toString()
-//        avgL1.text = analytics.averageTime(false, 1, true).toString()
-
         problemPresentedL2.text = analytics.totalProblems(2).toString()
         attemptedL2.text = analytics.attempted(2).toString()
         correctL2.text = analytics.totalRight(2).toString()
         fastestL2.text = String.format("%.1f", analytics.fastestTime(2, true))
         avgL2.text = String.format("%.1f", analytics.averageTime(false, 2, true))
-//        fastestL2.text = analytics.fastestTime(2, true).toString()
-//        avgL2.text = analytics.averageTime(false, 2, true).toString()
 
         problemPresentedL3.text = analytics.totalProblems(3).toString()
         attemptedL3.text = analytics.attempted(3).toString()
         correctL3.text =analytics.totalRight(3).toString()
         fastestL3.text = String.format("%.1f", analytics.fastestTime(3, true))
         avgL3.text = String.format("%.1f", analytics.averageTime(false, 3, true))
-//        fastestL3.text = analytics.fastestTime(3, true).toString()
-//        avgL3.text = analytics.averageTime(false, 3, true).toString()
 
         problemPresentedL4.text = analytics.totalProblems(4).toString()
         attemptedL4.text = analytics.attempted(4).toString()
         correctL14.text =analytics.totalRight(4).toString()
         fastestL4.text = String.format("%.1f", analytics.fastestTime(4, true))
         avgL4.text = String.format("%.1f", analytics.averageTime(false, 4, true))
-//        fastestL4.text = analytics.fastestTime(4, true).toString()
-//        avgL4.text = analytics.averageTime(false, 4, true).toString()
 
         problemPresentedL5.text = analytics.totalProblems(5).toString()
         attemptedL5.text = analytics.attempted(5).toString()
         correctL5.text =analytics.totalRight(5).toString()
         fastestL5.text = String.format("%.1f", analytics.fastestTime(5, true))
         avgL5.text = String.format("%.1f", analytics.averageTime(false, 5, true))
-//        fastestL5.text = analytics.fastestTime(5, true).toString()
-//        avgL5.text = analytics.averageTime(false, 5, true).toString()
 
         problemPresentedGame.text = analytics.totalProblems(0).toString()
         attemptedGame.text = analytics.attempted(0).toString()
         correctGame.text =analytics.totalRight(0).toString()
         fastestGame.text = String.format("%.1f", analytics.fastestTime(0, true))
         avgGame.text = String.format("%.1f", analytics.averageTime(false, 0, true))
-//        fastestGame.text = analytics.fastestTime(0, true).toString()
-//        avgGame.text = analytics.averageTime(false, 0, true).toString()
 
         val graph1 = findViewById<View>(R.id.graph1) as GraphView
         val series1 = BarGraphSeries<DataPoint>()
@@ -135,8 +118,6 @@ class Summary : AppCompatActivity() {
         val graph2 = findViewById<View>(R.id.graph2) as GraphView
         val series2 = BarGraphSeries<DataPoint>()
 
-        // Strike Rate = Right Answers / Problems
-
         Log.d(TAG, "StrikeRate for value 1 = ${analytics.getStrikeRate(1)}")
         series2.appendData(DataPoint(1.0, analytics.getStrikeRate(1)), true, 5)
         series2.appendData(DataPoint(2.0, analytics.getStrikeRate(2)), true, 5)
@@ -154,31 +135,24 @@ class Summary : AppCompatActivity() {
         val bShare = findViewById<ImageButton>(R.id.imageButtonShare)
 
         bShare.setOnClickListener{
+            val bmp = takeScreenShot(it)
+
             val shareIntent = Intent()
+
             shareIntent.action = Intent.ACTION_SEND
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "I am using Sum#it")
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "testing")
+            shareIntent.setPackage("com.whatsapp")
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Look at my score in sum.it!")
+//            shareIntent.putExtra(Intent.EXTRA_TEXT, "!")
+//            shareIntent.putExtra(Intent.EXTRA_STREAM, bmp)
+//            shareIntent.type = "text/plain"
+
+//            shareIntent.putExtra(Intent.EXTRA_STREAM, imgUri)
             shareIntent.type = "text/plain"
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
             startActivity(Intent.createChooser(shareIntent, "Share to..."))
-
-//            val shareImageIntent = Intent()
-//            shareImageIntent.action = Intent.ACTION_SEND
-//            shareImageIntent.type = "image/*"
-//            val imgPath: String = Environment.getExternalStorageDirectory().path + ("/sumit.png")
-//            val img = File(imgPath)
-//
-//            val uri = Uri.fromFile(img)
-//            shareImageIntent.putExtra(Intent.EXTRA_STREAM, uri)
-//            startActivity(Intent.createChooser(shareImageIntent,"Sharing..."))
-
         }
 
-
-        val bContinue = findViewById<Button>(R.id.buttonContinue)
-        bContinue.setOnClickListener {
-            finish()
-        }
         val bQuit = findViewById<Button>(R.id.buttonQuit)
         bQuit.setOnClickListener {
             val data = Intent()
@@ -188,5 +162,21 @@ class Summary : AppCompatActivity() {
             setResult(RESULT_OK, data)
             finish()
         }
+    }
+
+    fun takeScreenShot(view: View): Bitmap? {
+        // configuramos para que la view almacene la cache en una imagen
+        view.isDrawingCacheEnabled = true
+        view.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_LOW
+        view.buildDrawingCache()
+
+        if (view.drawingCache == null) return null // Verificamos antes de que no sea null
+
+        // utilizamos esa cache, para crear el bitmap que tendra la imagen de la view actual
+        val snapshot = Bitmap.createBitmap(view.getDrawingCache())
+//        view.isDrawingCacheEnabled = false
+//        view.destroyDrawingCache()
+
+        return snapshot
     }
 }

@@ -1,77 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Summary">
 
     <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/strings_game_summary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp" app:layout_constraintTop_toTopOf="parent" android:textSize="30sp"
-            android:textAlignment="center"/>
-    <TextView
-            android:text="@string/strings_summary_so_far"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewCloseTitle" android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" android:textSize="24sp" android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
+            android:id="@+id/scrollView3"
             android:layout_width="0dp"
-            android:layout_height="0dp" android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@+id/textViewCloseTitle" android:id="@+id/scrollView3"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
-            app:layout_constraintHorizontal_bias="0.0" android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonQuit">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonQuit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
             <TextView
+                    android:id="@+id/textViewGameSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="@string/strings_analysis_title"
+                    android:textSize="24sp" />
+
+            <TextView
+                    android:id="@+id/textViewAttemptRate"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/textViewGameSummary" android:textSize="24sp"/>
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="327dp"
-                    android:layout_height="wrap_content" android:id="@+id/textViewSummaryText"
-                    android:textSize="18sp"/>
-            <TextView
+                    android:layout_height="wrap_content"
                     android:text="@string/strings_attempt_rate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/textViewAttemptRate" android:textSize="18sp"/>
+                    android:textSize="18sp" />
+
             <com.jjoe64.graphview.GraphView
+                    android:id="@+id/graph1"
                     android:layout_width="match_parent"
                     android:layout_height="200dip"
-                    android:id="@+id/graph1" android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp" />
+
             <TextView
-                    android:text="@string/strings_strike_rate"
+                    android:id="@+id/textViewStrikeRate"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/textViewStrikeRate" android:textSize="18sp"/>
+                    android:layout_height="wrap_content"
+                    android:text="@string/strings_strike_rate"
+                    android:textSize="18sp" />
+
             <com.jjoe64.graphview.GraphView
+                    android:id="@+id/graph2"
                     android:layout_width="match_parent"
                     android:layout_height="200dip"
-                    android:id="@+id/graph2" android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp" />
+
             <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" app:srcCompat="@android:drawable/ic_menu_share"
-                        tools:layout_editor_absoluteY="301dp" tools:layout_editor_absoluteX="19dp"
-                        android:id="@+id/imageButtonShare"/>
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
 
             </LinearLayout>
+
             <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -79,274 +87,444 @@
                 <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewSummaryBlank"/>
-                    <TextView
-                            android:text="@string/level1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewSummaryL1"
-                            android:textSize="18sp" android:textAlignment="center" android:textStyle="bold"
-                            android:layout_marginLeft="4sp"/>
-                    <TextView
-                            android:text="@string/level2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewSummaryL2"
-                            android:textSize="18sp" android:textAlignment="center" android:textStyle="bold"
-                            android:layout_marginLeft="4sp"/>
-                    <TextView
-                            android:text="@string/level3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewSummaryL3"
-                            android:textSize="18sp" android:textAlignment="center" android:textStyle="bold"
-                            android:layout_marginLeft="4sp"/>
-                    <TextView
-                            android:text="@string/level4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewSummaryL4"
-                            android:textSize="18sp" android:textAlignment="center" android:textStyle="bold"
-                            android:layout_marginLeft="4sp"/>
-                    <TextView
-                            android:text="@string/level5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewSummaryL5"
-                            android:textSize="18sp" android:textAlignment="center" android:textStyle="bold"/>
 
                     <TextView
-                            android:text="@string/strings_header_game"
+                            android:id="@+id/textViewSummaryBlank"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewGame"
-                            android:textSize="18sp" android:textAlignment="center" android:textStyle="bold"/>
+                            android:layout_height="wrap_content" />
+
+                    <TextView
+                            android:id="@+id/textViewSummaryL1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4sp"
+                            android:text="@string/level1"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    <TextView
+                            android:id="@+id/textViewSummaryL2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4sp"
+                            android:text="@string/level2"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    <TextView
+                            android:id="@+id/textViewSummaryL3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4sp"
+                            android:text="@string/level3"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    <TextView
+                            android:id="@+id/textViewSummaryL4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4sp"
+                            android:text="@string/level4"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    <TextView
+                            android:id="@+id/textViewSummaryL5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/level5"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    <TextView
+                            android:id="@+id/textViewGame"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/strings_header_game"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                 </TableRow>
+
                 <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                     <TextView
+                            android:id="@+id/textViewPresented"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/strings_problems"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewPresented"
-                            android:textSize="18sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewPresentedL1"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewPresentedL2"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewPresentedL3"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewPresentedL4"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewPresentedL5"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
+                            android:textSize="18sp" />
 
                     <TextView
-                            android:text="TextView"
+                            android:id="@+id/textViewPresentedL1"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewPresentedGame"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewPresentedL2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewPresentedL3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewPresentedL4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewPresentedL5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewPresentedGame"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
 
                 </TableRow>
-                <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
                     <TextView
+                            android:id="@+id/textViewAttemptedLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/strings_attempted"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewAttemptedLabel"
-                            android:textSize="18sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewAttemptedL1"
-                            android:textAlignment="center" android:textSize="18sp" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewAttemptedL2"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewAttemptedL3"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewAttemptedL4"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewAttemptedL5"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
+                            android:textSize="18sp" />
 
                     <TextView
-                            android:text="TextView"
+                            android:id="@+id/textViewAttemptedL1"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewAttemptedGame"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewAttemptedL2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewAttemptedL3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewAttemptedL4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewAttemptedL5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewAttemptedGame"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
 
                 </TableRow>
-                <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
                     <TextView
+                            android:id="@+id/textViewCorrectLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/strings_correct"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewCorrectLabel"
-                            android:textSize="18sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewCorrectL1"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewCorrectL2"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewCorrectL3"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewCorrectL4"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewCorrectL5"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
+                            android:textSize="18sp" />
 
                     <TextView
-                            android:text="TextView"
+                            android:id="@+id/textViewCorrectL1"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewCorrectGame"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewCorrectL2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewCorrectL3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewCorrectL4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewCorrectL5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewCorrectGame"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
 
                 </TableRow>
-                <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
                     <TextView
+                            android:id="@+id/textViewFastestLevel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/strings_fastest"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewFastest"
-                            android:textSize="18sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewFastestL1"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewFastestL2"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewFastestL3"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewFastestL4"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewFastestL5"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
+                            android:textSize="18sp" />
 
                     <TextView
-                            android:text="TextView"
+                            android:id="@+id/textViewFastestL1"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewFastestGame"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewFastestL2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewFastestL3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewFastestL4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewFastestL5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewFastestGame"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
 
                 </TableRow>
-                <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
-                    <TextView
-                            android:text="@string/strings_average"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewAverage"
-                            android:textSize="18sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewAverageL1"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewAverageL2"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewAverageL3"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewAverageL4"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewAverageL5"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                     <TextView
-                            android:text="TextView"
+                            android:id="@+id/textViewAverage"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/textViewAverageGame"
-                            android:textSize="18sp" android:textAlignment="center" android:layout_marginLeft="8sp"/>
+                            android:layout_height="wrap_content"
+                            android:text="@string/strings_average"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewAverageL1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewAverageL2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewAverageL3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewAverageL4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewAverageL5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewAverageGame"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8sp"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
 
                 </TableRow>
             </TableLayout>
         </LinearLayout>
     </ScrollView>
+
     <Button
-            android:text="@string/strings_quit"
+            android:id="@+id/buttonQuit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/buttonQuit" android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp"
-    />
-    <Button
-            android:text="@string/strings_continue"
+            android:layout_marginBottom="16dp"
+            android:text="@string/strings_quit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+            android:id="@+id/imageButtonShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/buttonContinue"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toStartOf="@+id/buttonQuit"
-            android:layout_marginEnd="16dp" app:layout_constraintBaseline_toBaselineOf="@+id/buttonQuit"/>
+            app:layout_constraintTop_toTopOf="@+id/buttonQuit"
+            app:srcCompat="@android:drawable/ic_menu_share" />
+
     <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="@string/app_ver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView3" app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
     <TextView
-            android:text="@string/app_name"
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView4"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="@+id/buttonContinue"
-            app:layout_constraintStart_toStartOf="@+id/scrollView3"/>
+            android:text="@string/app_name"
+            app:layout_constraintStart_toStartOf="@+id/scrollView3"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonShare" />
 </android.support.constraint.ConstraintLayout>
