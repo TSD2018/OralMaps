@@ -1,26 +1,34 @@
 package com.example.oralmaths
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.AudioManager
+import android.media.ToneGenerator
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
+import android.support.annotation.RequiresApi
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
+import android.util.Base64
 import android.util.Log
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ProgressBar
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
-import android.media.ToneGenerator
-import android.media.AudioManager
-import android.support.annotation.RequiresApi
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-import android.util.Base64
+import java.util.*
+//import javax.swing.JColorChooser.showDialog
+
 
 private const val CURRENT_ARG1 = "Arg1"
 private const val CURRENT_ARG2 = "Arg2"
@@ -45,8 +53,13 @@ enum class TimerState { NOT_RUNNING, RUNNING }
 
 private var timerState: TimerState = TimerState.NOT_RUNNING
 
+const val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 2211
+
+
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var levelCtr = 0
+
+    private var timerCtr: Int = 0
 
     private lateinit var textRight: TextView
     private lateinit var textWrong: TextView
@@ -65,9 +78,12 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         val bClose = findViewById<ImageButton>(R.id.imageButtonClose)
         bClose.setOnClickListener {
-            if(timerState == TimerState.RUNNING)
-                timer.cancel()
+            checkForTimer()
+//            if(timerState == TimerState.RUNNING) {
+//                timer.cancel()
+//            }
             val summaryIntent = Intent(this, Summary::class.java)
+            Log.d("FLOW:", "OnCreate MainActivity: Calling Summary #1 RequestCode 22")
             startActivityForResult(summaryIntent, 22)
         }
 
@@ -130,6 +146,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         levelCtr = 0
         barProgress.progress = 0
         AnswerAnalytics.addToAttemptCount(level.myLevelNumber())
+        editResult.requestFocus()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
@@ -189,16 +206,25 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             } else {
                 generateNumbers()
 
-                if (level.isTimedLevel())
+                if (level.isTimedLevel()) {
+                    Log.d("TIMER", "StartTimer from processNext-->else (levelComplete #2.  Timer = ${++timerCtr}")
                     startTimer(mCtx)
+                }
                 editResult.setText("")
             }
         } else {   /* had to include the else to avoid background processing of the timer and number generation when the banner activity is shown */
             analytics.addTime(level.myLevelNumber(), timeTaken)
             generateNumbers()
 
-            if (level.isTimedLevel())
-                startTimer(mCtx)
+            if (level.isTimedLevel()) {
+                if(timerState == TimerState.NOT_RUNNING) {
+                    Log.d("TIMER", "StartTimer from processNext -->else (isItRight) #3.  Timer = ${++timerCtr}")
+                    startTimer(mCtx)
+                }
+                else{
+                    Log.d("TIMER:", "Timer not started as timer != NOT_RUNNING")
+                }
+            }
             editResult.setText("")
         }
     }
@@ -213,22 +239,35 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        Log.d("FLOW:","OnActivityResult #00 RequestCode=${requestCode}")
 
         if (resultCode== Activity.RESULT_OK){
+            Log.d("FLOW:","OnActivityResult.RESULT_OK #0 RequestCode=${requestCode}")
             finish()
-        }
-        setScoreBoard()
-        generateNumbers()
-        if (level.isTimedLevel())
-            startTimer(this)
-        editResult.setText("")
+//            // Bad Fix! 28_DEC_2019
+//            if(level.myLevel() == ELevel.LEVEL_WINNER)
+//            {
+//                finish()
+//            }
 
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        }else {
+
+            setScoreBoard()
+            generateNumbers()
+            if (level.isTimedLevel()) {
+                Log.d("TIMER", "StartTimer from OnActivityResult #1.  Timer = ${++timerCtr}")
+                startTimer(this)
+            }
+            editResult.setText("")
+
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        }
     }
 
     private fun startTimer(mCtx: Context) {
         timer = object : CountDownTimer(level.timerValue().toLong(), 1000) {
             override fun onFinish() {
+                Log.d("TIMER", "onFinish.  Timer = ${--timerCtr}")
                 timerState = TimerState.NOT_RUNNING
 
                 val toneGen1 = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
@@ -267,6 +306,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun checkForTimer() {
         if (timerState == TimerState.RUNNING) {
+            Log.d("TIMER", "checkForTimer.  Timer = ${--timerCtr}")
             timer.cancel()
         }
         timerState = TimerState.NOT_RUNNING
@@ -277,6 +317,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         startUpIntent.putExtra("MAIN_TITLE", level.getTitle())
         startUpIntent.putExtra("RULES", level.getRules())
         startUpIntent.putExtra("RULES_TEXT", level.getRulesText())
+        Log.d("FLOW:", "OnCreate startUp #2: RequestCode = 10")
         startActivityForResult(startUpIntent, 10)
     }
 
@@ -285,6 +326,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             timer.cancel()
 
         val activitySnapshotIntent = Intent(this, SnapshotActivity::class.java)
+        Log.d("FLOW:", "displayMilestone #3: RequestCode = 11")
         startActivityForResult(activitySnapshotIntent, 11)
     }
 
@@ -343,4 +385,46 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
         super.onDestroy()
     }
+
+
+/*    fun checkPermissionREAD_EXTERNAL_STORAGE(
+        context: Context?
+    ): Boolean {
+        val currentAPIVersion = Build.VERSION.SDK_INT
+        return if (currentAPIVersion >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(
+                    context!!,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        (context as Activity?)!!,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                ) {
+                    showDialog(
+                        "External storage", context,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                } else {
+                    ActivityCompat
+                        .requestPermissions(
+                            (context as Activity?)!!,
+                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                            MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE
+                        )
+                }
+                false
+            } else {
+                true
+            }
+        } else {
+            true
+        }
+    }
+
+    fun showDialog(msg: String, context: Context,
+            permission: String) {
+    }
+*/
 }

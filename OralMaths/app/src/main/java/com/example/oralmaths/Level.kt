@@ -33,13 +33,21 @@ object Level {
         return maxTimeout
     }
 
-    private fun timerValueInSeconds(mCtx: Context): String {
+    fun timerValueInSeconds(): String {
         val s: String
         val sec: Int = maxTimeout/1000
 
-        s = sec.toString() + mCtx.getString(R.string.strings_seconds)
+        s = sec.toString() // + mCtx.getString(R.string.strings_seconds)
         return s
     }
+
+//    private fun timerValueInSeconds(mCtx: Context): String {
+//        val s: String
+//        val sec: Int = maxTimeout/1000
+//
+//        s = sec.toString() + mCtx.getString(R.string.strings_seconds)
+//        return s
+//    }
 
     fun myLevelNumber() : Int
     {
@@ -115,10 +123,13 @@ object Level {
         maxScore = mCtx.getString(R.string.problems_per_level).toInt()
         timer = true
         maxTimeout = 10 * 1000 // (10 seconds)
+        val analytics = AnswerAnalytics
+        analytics.setTimerValue(myLevelNumber(), maxTimeout)
         levelCompleted = mCtx.getString(R.string.strings_level_title1_complete)
         levelTitle = mCtx.getString(R.string.strings_level_title2)   // "Level 2"
         levelRules = mCtx.getString(R.string.strings_rules_title) + " ${getTitle()}"  // "How to Play - "
-        levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +
+//        levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +    // mCtx.getString(R.string.strings_seconds)
+        levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds()}${mCtx.getString(R.string.strings_seconds)} " +
                 mCtx.getString(R.string.strings_rules_timed_b) +
                 mCtx.getString(R.string.strings_rules_level_a) + " ${maxScore()} " + mCtx.getString(R.string.strings_rules_level_b)
         levelAnalysis = mCtx.getString(R.string.strings_analysis_title_a) + " ${getPrevLevelTitle()}"  // "Analysis of "
@@ -135,10 +146,12 @@ object Level {
         timer = true
         val analytics = AnswerAnalytics
         maxTimeout = analytics.averageTime(forRight = false, l=0).toInt() + 1000 // 9 * 1000 // (9 seconds)
+        analytics.setTimerValue(myLevelNumber(), maxTimeout)
         levelCompleted = mCtx.getString(R.string.strings_level_title2_complete)
         levelTitle = mCtx.getString(R.string.strings_level_title3)   // "Level 3"
         levelRules = mCtx.getString(R.string.strings_rules_title) + " ${getTitle()}"  // "How to Play - "
-        levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +
+//        levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +    // mCtx.getString(R.string.strings_seconds)
+        levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds()}${mCtx.getString(R.string.strings_seconds)} " +
                 mCtx.getString(R.string.strings_rules_timed_b) +
                 mCtx.getString(R.string.strings_rules_level_a) + " ${maxScore()} " + mCtx.getString(R.string.strings_rules_level_b)
         levelAnalysis = mCtx.getString(R.string.strings_analysis_title_a) + " ${getPrevLevelTitle()}"  // "Analysis of "
@@ -156,9 +169,11 @@ object Level {
         timer = true
         val analytics = AnswerAnalytics
         maxTimeout = analytics.averageTime(forRight = true, l=0).toInt() + 1000 // 9 * 1000 // (9 seconds)
+        analytics.setTimerValue(myLevelNumber(), maxTimeout)
         levelTitle = mCtx.getString(R.string.strings_level_title4)   // "Level 4"
         levelRules = mCtx.getString(R.string.strings_rules_title) + " ${getTitle()}"  // "How to Play - "
-        levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +
+//        levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +    // mCtx.getString(R.string.strings_seconds)
+        levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds()}${mCtx.getString(R.string.strings_seconds)} " +
                 mCtx.getString(R.string.strings_rules_timed_b) +
                 mCtx.getString(R.string.strings_rules_level_a) + " ${maxScore()} " + mCtx.getString(R.string.strings_rules_level_b)
         levelAnalysis = mCtx.getString(R.string.strings_analysis_title_a) + " ${getPrevLevelTitle()}"  // "Analysis of "
@@ -176,9 +191,11 @@ object Level {
         timer = true
         val analytics = AnswerAnalytics
         maxTimeout = analytics.averageTime(forRight = true, l=0).toInt() // 9 * 1000 // (9 seconds)
+        analytics.setTimerValue(myLevelNumber(), maxTimeout)
         levelTitle = mCtx.getString(R.string.strings_level_title5)   // "Level 5"
         levelRules = mCtx.getString(R.string.strings_rules_title) + " ${getTitle()}"  // "How to Play - "
-        levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +
+//        levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds(mCtx)} " +    // mCtx.getString(R.string.strings_seconds)
+        levelRulesText = mCtx.getString(R.string.strings_rules_timed_a) + " ${timerValueInSeconds()}${mCtx.getString(R.string.strings_seconds)} " +
                 mCtx.getString(R.string.strings_rules_timed_b) +
                 mCtx.getString(R.string.strings_rules_level_a) + " ${maxScore()} " + mCtx.getString(R.string.strings_rules_level_b)
         levelAnalysis = mCtx.getString(R.string.strings_analysis_title_a) + " ${getPrevLevelTitle()}"  // "Analysis of "

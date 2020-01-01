@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -14,6 +15,8 @@ class SnapshotActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_snapshot)
+
+        val TAG = "SnapshotActivity"
 
         val textViewTitle = findViewById<TextView>(R.id.textViewSnapshotTitle)
         val textViewTitleSummary = findViewById<TextView>(R.id.textViewLevelSummary)
@@ -37,8 +40,10 @@ class SnapshotActivity : AppCompatActivity() {
 
         val l = level.myLevelNumber() - 1
 
+        Log.d(TAG, "level.myLevelNumber() = ${level.myLevelNumber()} :: l = $l")
+
         textViewTitle.text = getString(R.string.strings_summary) //"Summary"
-        textViewTitleSummary.text = level.getPrevLevelTitle() + getString(R.string.strings_completed)  //" completed"
+        textViewTitleSummary.text = level.getPrevLevelTitle() + " " + getString(R.string.strings_completed)  //" completed"
         textViewStrikeRatePercent.text = "\n" + //analytics.getStrikeRate(l).toString()
             String.format("%.1f", analytics.getStrikeRate(l)) + "%"
 

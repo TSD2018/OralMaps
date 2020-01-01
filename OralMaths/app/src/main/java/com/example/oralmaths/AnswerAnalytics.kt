@@ -11,6 +11,7 @@ object AnswerAnalytics {
     private var totalProblems = intArrayOf(0, 0, 0, 0, 0, 0)
     private var totalProblemsRight = intArrayOf(0, 0, 0, 0, 0, 0)
     private var totalTimeout = intArrayOf(0, 0, 0, 0, 0, 0)
+    private var timerValue = intArrayOf(0, 0, 0, 0, 0, 0)
     private var fastestTime = longArrayOf(0, 0, 0, 0, 0, 0)
     private var slowestTime = longArrayOf(0, 0, 0, 0, 0, 0)
     private var attemptCount =  intArrayOf(0, 0, 0, 0, 0, 0)
@@ -23,6 +24,7 @@ object AnswerAnalytics {
             totalProblems:      ${totalProblems[1]}   ${totalProblems[2]}  ${totalProblems[3]}   ${totalProblems[4]}   ${totalProblems[5]}  ${totalProblems[0]}
             totalProblemsRight: ${totalProblemsRight[1]}  ${totalProblemsRight[2]}  ${totalProblemsRight[3]}  ${totalProblemsRight[4]}  ${totalProblemsRight[5]}  ${totalProblemsRight[0]}
             totalTimeout:       ${totalTimeout[1]}  ${totalTimeout[2]}  ${totalTimeout[3]}  ${totalTimeout[4]}  ${totalTimeout[5]}  ${totalTimeout[0]}
+            timerValue:         ${timerValue[1]}  ${timerValue[2]}   ${timerValue[3]}   ${timerValue[4]}   ${timerValue[5]}   ${timerValue[0]}
             fastestTime:        ${fastestTime[1]}  ${fastestTime[2]}   ${fastestTime[3]}   ${fastestTime[4]}   ${fastestTime[5]}   ${fastestTime[0]}
             slowestTime:        ${slowestTime[1]}  ${slowestTime[2]}  ${slowestTime[3]}  ${slowestTime[4]}  ${slowestTime[5]}  ${slowestTime[0]}
             ForRight    Simple      Excl Fastest     Excl Slowest   Excl Both
@@ -83,6 +85,14 @@ object AnswerAnalytics {
 
     fun totalTimeOut(l: Int = 0): Int {
         return totalTimeout[l]
+    }
+
+    fun setTimerValue(l: Int = 0, timerVal: Int = 0) {
+        timerValue[l] = timerVal
+    }
+
+    fun getTimerValue(l: Int = 0): Int {
+        return timerValue[l]/1000
     }
 
     fun fastestTime(l: Int = 0, sec: Boolean = false): Float {

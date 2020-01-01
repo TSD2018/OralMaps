@@ -104,28 +104,27 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="@+id/barrier" android:layout_marginTop="16dp"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline"/>
+            app:layout_constraintStart_toStartOf="@+id/guideline"/><![CDATA[
     app:layout_constraintStart_toStartOf="@+id/editTextResult"/>
-    <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@android:drawable/ic_menu_preferences"
-            android:id="@+id/imageButtonOptions"
-            app:layout_constraintEnd_toStartOf="@+id/imageButtonClose" android:layout_marginEnd="8dp"
-            app:layout_constraintTop_toTopOf="@+id/imageButtonClose"/>
+    ]]>
+
     <TextView
             android:text="@string/app_ver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewVersion" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewProduct" android:layout_marginStart="16dp"/>
+
     <TextView
-            android:text="TextView"
+            android:id="@+id/textViewTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textViewTimer"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textViewRight" android:textSize="24sp"
-            app:layout_constraintEnd_toStartOf="@+id/textViewWrong" android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toEndOf="@+id/textViewRight" android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:textSize="24sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewRight"
+            app:layout_constraintEnd_toStartOf="@+id/textViewWrong"
+            app:layout_constraintStart_toEndOf="@+id/textViewRight" />
     <TextView
             android:text="TextView"
             android:layout_width="48dp"

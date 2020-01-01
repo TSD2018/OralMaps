@@ -36,7 +36,8 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="false"
                 android:orientation="vertical">
 
             <TextView
@@ -46,6 +47,14 @@
                     android:text="@string/strings_analysis_title"
                     android:textSize="24sp" />
 
+            <com.jjoe64.graphview.GraphView
+                    android:id="@+id/graph1"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="100"
+                    android:clickable="false" />
+
             <TextView
                     android:id="@+id/textViewAttemptRate"
                     android:layout_width="match_parent"
@@ -54,10 +63,11 @@
                     android:textSize="18sp" />
 
             <com.jjoe64.graphview.GraphView
-                    android:id="@+id/graph1"
+                    android:id="@+id/graph2"
                     android:layout_width="match_parent"
                     android:layout_height="200dip"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="100" />
 
             <TextView
                     android:id="@+id/textViewStrikeRate"
@@ -66,23 +76,19 @@
                     android:text="@string/strings_strike_rate"
                     android:textSize="18sp" />
 
-            <com.jjoe64.graphview.GraphView
-                    android:id="@+id/graph2"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dip"
-                    android:layout_marginTop="8dp" />
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-
-            </LinearLayout>
-
             <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                </TableRow>
 
                 <TableRow
                         android:layout_width="match_parent"
@@ -359,6 +365,78 @@
                         android:layout_height="match_parent">
 
                     <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <TextView
+                            android:id="@+id/textViewTimeLevel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/strings_timeout"
+                            android:textAlignment="textStart"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewTimeL1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewTimeL2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewTimeL3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewTimeL4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewTimeL5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/textViewTimeGame"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <TextView
                             android:id="@+id/textViewFastestLevel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -488,6 +566,7 @@
 
                 </TableRow>
             </TableLayout>
+
         </LinearLayout>
     </ScrollView>
 

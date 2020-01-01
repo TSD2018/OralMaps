@@ -44,6 +44,8 @@ class BannerActivity : AppCompatActivity() {
     private fun displaySummary()
     {
         val summaryIntent = Intent(this, Summary::class.java)
+//        startActivity(summaryIntent)
         startActivityForResult(summaryIntent, 12)
+        finish()
     }
 }
