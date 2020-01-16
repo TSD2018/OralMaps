@@ -6,16 +6,18 @@ object AnswerAnalytics {
     private const val TAG = "AnswerAnalytics"
 
     // Offset 0 = game, 1 = L1, 2 = L2, 3 = L3, 4 = L4, 5 = L5
-    private var timeTaken = longArrayOf(0, 0, 0, 0, 0, 0)
-    private var timeTakenForRight = longArrayOf(0, 0, 0, 0, 0, 0)
-    private var totalProblems = intArrayOf(0, 0, 0, 0, 0, 0)
-    private var totalProblemsRight = intArrayOf(0, 0, 0, 0, 0, 0)
-    private var totalTimeout = intArrayOf(0, 0, 0, 0, 0, 0)
-    private var timerValue = intArrayOf(0, 0, 0, 0, 0, 0)
-    private var fastestTime = longArrayOf(0, 0, 0, 0, 0, 0)
-    private var slowestTime = longArrayOf(0, 0, 0, 0, 0, 0)
-    private var attemptCount =  intArrayOf(0, 0, 0, 0, 0, 0)
-    private var totalErrors = intArrayOf(0, 0, 0, 0, 0, 0)
+    //                                              0    1    2    3    4    5
+    private var timeTaken           = longArrayOf  (0,   0,   0,   0,   0,   0)
+    private var timeTakenForRight   = longArrayOf  (0,   0,   0,   0,   0,   0)
+    private var totalProblems       = intArrayOf   (0,   0,   0,   0,   0,   0)
+    private var totalProblemsRight  = intArrayOf   (0,   0,   0,   0,   0,   0)
+    private var totalTimeout        = intArrayOf   (0,   0,   0,   0,   0,   0)
+    private var timerValue          = intArrayOf   (0,   0,   0,   0,   0,   0)
+    private var fastestTime         = longArrayOf  (0,   0,   0,   0,   0,   0)
+    private var slowestTime         = longArrayOf  (0,   0,   0,   0,   0,   0)
+    private var attemptCount        = intArrayOf   (0,   0,   0,   0,   0,   0)
+    private var totalErrors         = intArrayOf   (0,   0,   0,   0,   0,   0)
+    private var score               = doubleArrayOf(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 
     override fun toString(): String {
         return """
@@ -54,6 +56,18 @@ object AnswerAnalytics {
         )} ${averageTime(l = 0, outliner = "both")}
         """.trimIndent()
 
+    }
+
+    fun getSumLevelScore(l: Int=0) : Int{
+        return score[l].toInt()
+    }
+
+    fun computeScore(l: Int){
+        score[l] = (level.maxScore() * getStrikeRate(l) * l) +
+                (level.getLevelCompletePoints() / averageTime(false,l,true,"none"))
+        // forRight: Boolean = true, l: Int = 0, sec: Boolean = false, outliner: String = "fastest"
+        score[0] = score[0] + score[l]
+        return
     }
 
     fun getAttemptRate(l: Int) : Double {

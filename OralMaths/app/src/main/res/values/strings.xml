@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_ver">Ver 0.152 testing</string>
+    <string name="app_ver">Ver 0.175 testing</string>
     <string name="app_name">Sum.it</string>
     <string name="test_mode">yes</string>
     <string name="problems_per_level">7</string>
@@ -79,4 +79,9 @@
     <string name="strings_completed">completed</string>
     <string name="facebook_app_id">451721482255483</string>
     <string name="strings_timeout">Timeout:</string>
+    <string name="string_label_breakdown">Details</string>
+    <string name="string_label_score">Score:</string>
+    <string name="string_label_scrore2">of a total</string>
+    <string name="string_label_score3">level</string>
+    <string name="string_final_score">Final Score</string>
 </resources>

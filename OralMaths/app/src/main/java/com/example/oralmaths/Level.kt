@@ -16,6 +16,7 @@ object Level {
     private var levelAnalysis = ""
     private var levelAnalysisData = ""
     private var levelCompleted = ""
+    private var levelCompletePoints = 100
 
     fun checkLevelComplete(currentScore: Int): Boolean {
         return currentScore >= this.maxScore
@@ -40,14 +41,6 @@ object Level {
         s = sec.toString() // + mCtx.getString(R.string.strings_seconds)
         return s
     }
-
-//    private fun timerValueInSeconds(mCtx: Context): String {
-//        val s: String
-//        val sec: Int = maxTimeout/1000
-//
-//        s = sec.toString() + mCtx.getString(R.string.strings_seconds)
-//        return s
-//    }
 
     fun myLevelNumber() : Int
     {
@@ -99,6 +92,10 @@ object Level {
         return prevLevelTitle
     }
 
+    fun getLevelCompletePoints(): Int {
+        return levelCompletePoints
+    }
+
     private fun setLevel1(mCtx: Context) {
         prevLevel = ELevel.LEVEL_INIT
         prevLevelTitle = ""
@@ -114,16 +111,20 @@ object Level {
         levelAnalysis = mCtx.getString(R.string.strings_analysis_title) // "Analysis"
         levelAnalysisData = mCtx.getString(R.string.strings_analysis_default_data)
         levelText = mCtx.getString(R.string.level1)     // L1
+        levelCompletePoints = 100
     }
 
     private fun setLevel2(mCtx: Context) {
         prevLevel = ELevel.LEVEL_1
         prevLevelTitle = levelTitle
+        val analytics = AnswerAnalytics
+        analytics.computeScore(myLevelNumber())
+
         level = ELevel.LEVEL_2
         maxScore = mCtx.getString(R.string.problems_per_level).toInt()
         timer = true
         maxTimeout = 10 * 1000 // (10 seconds)
-        val analytics = AnswerAnalytics
+//        val analytics = AnswerAnalytics
         analytics.setTimerValue(myLevelNumber(), maxTimeout)
         levelCompleted = mCtx.getString(R.string.strings_level_title1_complete)
         levelTitle = mCtx.getString(R.string.strings_level_title2)   // "Level 2"
@@ -136,16 +137,25 @@ object Level {
         levelAnalysisData =
             mCtx.getString(R.string.strings_analysis_default_data)  //"You will be provided a detailed report on your game"
         levelText = mCtx.getString(R.string.level2)     // mCtx.getString(R.string.level2)
+        levelCompletePoints = 200
     }
 
     private fun setLevel3(mCtx: Context) {
         prevLevel = ELevel.LEVEL_2
         prevLevelTitle = levelTitle
+
+        val analytics = AnswerAnalytics
+        analytics.computeScore(myLevelNumber())
+
         level = ELevel.LEVEL_3
         maxScore = mCtx.getString(R.string.problems_per_level).toInt()
         timer = true
-        val analytics = AnswerAnalytics
-        maxTimeout = analytics.averageTime(forRight = false, l=0).toInt() + 1000 // 9 * 1000 // (9 seconds)
+        maxTimeout = (analytics.averageTime(forRight = false, l=0).toInt() + 1000) -
+                ((analytics.averageTime(forRight = false, l=0).toInt() + 1000) % 1000) // 9 * 1000 // (9 seconds)
+
+        if(maxTimeout >= 10 * 1000) {
+            maxTimeout = 9 * 1000
+        }
         analytics.setTimerValue(myLevelNumber(), maxTimeout)
         levelCompleted = mCtx.getString(R.string.strings_level_title2_complete)
         levelTitle = mCtx.getString(R.string.strings_level_title3)   // "Level 3"
@@ -158,17 +168,22 @@ object Level {
         levelAnalysisData =
             mCtx.getString(R.string.strings_analysis_default_data)  //"You will be provided a detailed report on your game"
         levelText = mCtx.getString(R.string.level3)
+        levelCompletePoints = 300
     }
 
     private fun setLevel4(mCtx: Context) {
         prevLevel = ELevel.LEVEL_3
         prevLevelTitle = levelTitle
         levelCompleted = mCtx.getString(R.string.strings_level_title3_complete)
+        val analytics = AnswerAnalytics
+        analytics.computeScore(myLevelNumber())
         level = ELevel.LEVEL_4
         maxScore = mCtx.getString(R.string.problems_per_level).toInt()
         timer = true
-        val analytics = AnswerAnalytics
-        maxTimeout = analytics.averageTime(forRight = true, l=0).toInt() + 1000 // 9 * 1000 // (9 seconds)
+        maxTimeout = (analytics.averageTime(forRight = false, l=0).toInt() + 1000) -
+                ((analytics.averageTime(forRight = false, l=0).toInt() + 1000) % 1000) // 9 * 1000 // (9 seconds)
+
+//        maxTimeout = analytics.averageTime(forRight = true, l=0).toInt() + 1000 // 9 * 1000 // (9 seconds)
         analytics.setTimerValue(myLevelNumber(), maxTimeout)
         levelTitle = mCtx.getString(R.string.strings_level_title4)   // "Level 4"
         levelRules = mCtx.getString(R.string.strings_rules_title) + " ${getTitle()}"  // "How to Play - "
@@ -180,17 +195,22 @@ object Level {
         levelAnalysisData =
             mCtx.getString(R.string.strings_analysis_default_data)  //"You will be provided a detailed report on your game"
         levelText = mCtx.getString(R.string.level4)
+        levelCompletePoints = 400
     }
 
     private fun setLevel5(mCtx: Context) {
         prevLevel = ELevel.LEVEL_4
         prevLevelTitle = levelTitle
         levelCompleted = mCtx.getString(R.string.strings_level_title4_complete)
+        val analytics = AnswerAnalytics
+        analytics.computeScore(myLevelNumber())
         level = ELevel.LEVEL_5
         maxScore = mCtx.getString(R.string.problems_per_level).toInt()
         timer = true
-        val analytics = AnswerAnalytics
-        maxTimeout = analytics.averageTime(forRight = true, l=0).toInt() // 9 * 1000 // (9 seconds)
+        maxTimeout = (analytics.averageTime(forRight = false, l=0).toInt() + 1000) -
+                ((analytics.averageTime(forRight = false, l=0).toInt() + 1000) % 1000) // 9 * 1000 // (9 seconds)
+
+//        maxTimeout = analytics.averageTime(forRight = true, l=0).toInt() // 9 * 1000 // (9 seconds)
         analytics.setTimerValue(myLevelNumber(), maxTimeout)
         levelTitle = mCtx.getString(R.string.strings_level_title5)   // "Level 5"
         levelRules = mCtx.getString(R.string.strings_rules_title) + " ${getTitle()}"  // "How to Play - "
@@ -202,12 +222,18 @@ object Level {
         levelAnalysisData =
             mCtx.getString(R.string.strings_analysis_default_data)  //"You will be provided a detailed report on your game"
         levelText = mCtx.getString(R.string.level5)
+        levelCompletePoints = 500
     }
 
     private fun setLevelWinner(mCtx: Context) {
         prevLevel = ELevel.LEVEL_5
         prevLevelTitle = levelTitle // ""
+        val analytics = AnswerAnalytics
+        analytics.computeScore(myLevelNumber())
+
         level = ELevel.LEVEL_WINNER
+
+
         levelCompleted = mCtx.getString(R.string.strings_level_title5_complete)
         levelTitle = mCtx.getString(R.string.strings_winner)    // "Winner!"
         levelRules = mCtx.getString(R.string.strings_rules_title_congrats)  //"Congratulations"

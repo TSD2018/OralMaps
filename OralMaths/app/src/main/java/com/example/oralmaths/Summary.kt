@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
@@ -29,12 +30,13 @@ class Summary : AppCompatActivity() {
     private val tag = "Summary"
     var canShare: Boolean = false
 
-    private lateinit var graph2: GraphView
+    private lateinit var graphFinalScore: GraphView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_summary)
 
+        val tvTotalScore: TextView = findViewById(R.id.textViewTotalScore)
         val problemPresentedL1: TextView = findViewById(R.id.textViewPresentedL1)
         val attemptedL1: TextView = findViewById(R.id.textViewAttemptedL1)
         val correctL1: TextView = findViewById(R.id.textViewCorrectL1)
@@ -78,6 +80,8 @@ class Summary : AppCompatActivity() {
         val avgGame: TextView = findViewById(R.id.textViewAverageGame)
 
         val analytics = AnswerAnalytics
+
+        tvTotalScore.text = getString(R.string.string_label_score) + analytics.getSumLevelScore(0).toString()
         problemPresentedL1.text = analytics.totalProblems(1).toString()
         attemptedL1.text = analytics.attempted(1).toString()
         correctL1.text =analytics.totalRight(1).toString()
@@ -119,6 +123,42 @@ class Summary : AppCompatActivity() {
         timerGame.text = "-"
         fastestGame.text = String.format("%.1f", analytics.fastestTime(0, true))
         avgGame.text = String.format("%.1f", analytics.averageTime(false, 0, true))
+
+        graphFinalScore = findViewById<View>(R.id.graphScore) as GraphView
+        val scoreSeries = BarGraphSeries<DataPoint>()
+        val score = analytics.getSumLevelScore(0)
+        scoreSeries.appendData(DataPoint(1.0, score.toDouble()), true,5)
+//        scoreSeries.isAnimated = true
+        scoreSeries.isDrawValuesOnTop = true
+        scoreSeries.color = Color.RED
+        scoreSeries.valuesOnTopColor = Color.RED
+        scoreSeries.valuesOnTopSize = 64F
+        scoreSeries.title = "My Sum.it Score"
+
+        val scoreToBeatSeries = BarGraphSeries<DataPoint>()
+        scoreToBeatSeries.appendData(DataPoint(2.0, score.toDouble() + 1.0),true,5 )
+        scoreToBeatSeries.color = Color.MAGENTA
+        scoreToBeatSeries.isDrawValuesOnTop = true
+        scoreToBeatSeries.valuesOnTopColor = Color.MAGENTA
+        scoreToBeatSeries.valuesOnTopSize = 64F
+
+        scoreToBeatSeries.title = "To Beat & Win"
+
+
+        graphFinalScore.addSeries(scoreSeries)
+        graphFinalScore.addSeries(scoreToBeatSeries)
+
+        //graphFinalScore.titleTextSize = 56F
+        graphFinalScore.viewport.setMinX(0.0)
+        graphFinalScore.viewport.setMaxX(4.0)
+        graphFinalScore.viewport.setMinY(score.toDouble()-10)
+        graphFinalScore.viewport.setMaxY(score.toDouble()+10)
+        graphFinalScore.viewport.isXAxisBoundsManual = true
+
+        graphFinalScore.viewport.isYAxisBoundsManual = true
+
+        graphFinalScore.legendRenderer.isVisible = true
+        graphFinalScore.legendRenderer.align = LegendRenderer.LegendAlign.TOP
 
         val graph1 = findViewById<View>(R.id.graph1) as GraphView
         val series1 = LineGraphSeries<DataPoint>()
@@ -170,7 +210,7 @@ class Summary : AppCompatActivity() {
         val tvAttemptRate = findViewById<TextView>(R.id.textViewAttemptRate)
         tvAttemptRate.text = getString(R.string.strings_attempt_rate_details)
 
-        graph2 = findViewById<View>(R.id.graph2) as GraphView
+        val graph2 = findViewById<View>(R.id.graph2) as GraphView
         val series2 = BarGraphSeries<DataPoint>()
 //        val series2 = LineGraphSeries<DataPoint>()
 
@@ -181,8 +221,10 @@ class Summary : AppCompatActivity() {
         series2.appendData(DataPoint(4.0, analytics.getStrikeRate(4)), true, 5)
         series2.appendData(DataPoint(5.0, analytics.getStrikeRate(5)), true, 5)
         series2.spacing = 50
-        series2.isDrawValuesOnTop
-        series2.isDrawValuesOnTop = true
+//        series2.isDrawValuesOnTop
+//        series2.isDrawValuesOnTop = true
+//        series2.valuesOnTopSize = 24F
+//        series2.isDrawValuesOnTop = true
 //        series2.setAnimated(true)
         graph2.addSeries(series2)
         graph2.title = getString(R.string.strings_strike_rate)   // "Strike Rate"
@@ -220,7 +262,8 @@ class Summary : AppCompatActivity() {
 
         bShare.setOnClickListener {
             if (canShare == true) {
-                shareGraph(it.context)
+                shareGraph(this@Summary)
+     //           shareGraph(it.context)
 //                graph2.takeSnapshotAndShare(it.context, "StrikeGraph", "StikeRateView")
             } else {
                 val shareIntent = Intent()
@@ -278,7 +321,7 @@ class Summary : AppCompatActivity() {
     }
 
     private fun shareGraph(ctx: Context) {
-        graph2.takeSnapshotAndShare(ctx, "StrikeGraph", "Sum.it Score")
+        graphFinalScore.takeSnapshotAndShare(ctx, "StrikeGraph", "Sum.it Score")
     }
 
 }

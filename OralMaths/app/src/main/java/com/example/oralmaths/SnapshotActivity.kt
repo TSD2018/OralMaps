@@ -18,6 +18,9 @@ class SnapshotActivity : AppCompatActivity() {
 
         val TAG = "SnapshotActivity"
 
+        val textViewScore = findViewById<TextView>(R.id.textViewScore)
+//        val textViewLevelTotal = findViewById<TextView>(R.id.textView)
+
         val textViewTitle = findViewById<TextView>(R.id.textViewSnapshotTitle)
         val textViewTitleSummary = findViewById<TextView>(R.id.textViewLevelSummary)
         val textViewAttemptPercent = findViewById<TextView>(R.id.textViewAttemptPercent)
@@ -44,6 +47,9 @@ class SnapshotActivity : AppCompatActivity() {
 
         textViewTitle.text = getString(R.string.strings_summary) //"Summary"
         textViewTitleSummary.text = level.getPrevLevelTitle() + " " + getString(R.string.strings_completed)  //" completed"
+
+        textViewScore.text = getString(R.string.string_label_score) + analytics.getSumLevelScore(0).toString()
+
         textViewStrikeRatePercent.text = "\n" + //analytics.getStrikeRate(l).toString()
             String.format("%.1f", analytics.getStrikeRate(l)) + "%"
 

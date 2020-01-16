@@ -33,6 +33,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewSnapshotTitle" />
+
+    <TextView
+            android:id="@+id/textViewScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Score"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewLevelSummary" />
+
     <TextView
             android:text="@string/app_ver"
             android:layout_width="wrap_content"
@@ -47,22 +64,41 @@
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toTopOf="@+id/textView6"
     />
+
     <TableLayout
+            android:id="@+id/tableLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tableLayout" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/textViewLevelSummary">
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewScore">
 
-        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <TextView
                     android:id="@+id/textViewBlank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Score"
+                    android:text="@string/string_label_breakdown"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
+        </TableRow>
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" />
 
             <TextView
                     android:id="@+id/textViewLevel"
@@ -70,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/strings_header_level_part1"
                     android:textAlignment="textEnd"
+                    android:textColor="@color/com_facebook_blue"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -78,11 +115,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/strings_header_level_part2"
+                    android:textColor="@color/com_facebook_blue"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
             <TextView
+                    android:id="@+id/textViewBlank3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textViewBlank3"/>
+                    android:layout_height="wrap_content" />
 
             <TextView
                     android:id="@+id/textViewGame"
@@ -101,7 +141,10 @@
                     android:textSize="24sp"
                     android:textStyle="italic" />
         </TableRow>
-        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <TextView
                     android:id="@+id/textViewAttemptRate"
@@ -110,39 +153,43 @@
                     android:text="\nAttempt:\n"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+
             <ProgressBar
                     android:id="@+id/circularProgressbarAttempt"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
                     android:indeterminate="false"
                     android:max="100"
                     android:progress="50"
-                    android:layout_centerInParent="true"
                     android:progressDrawable="@drawable/circular"
-                    android:secondaryProgress="100"
-            />
+                    android:secondaryProgress="100" />
 
             <TextView
                     android:id="@+id/textViewAttemptPercent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
+                    android:textColor="@color/com_facebook_blue"
                     android:textSize="18sp" />
+
             <TextView
+                    android:id="@+id/textViewBlank5"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textViewBlank5"/>
+                    android:layout_height="wrap_content" />
+
             <ProgressBar
+                    android:id="@+id/progressBarAttemptGame"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
                     android:indeterminate="false"
                     android:max="100"
                     android:progress="50"
-                    android:layout_centerInParent="true"
                     android:progressDrawable="@drawable/circular"
-                    android:secondaryProgress="100"
-                    android:id="@+id/progressBarAttemptGame"/>
+                    android:secondaryProgress="100" />
 
             <TextView
                     android:id="@+id/textViewAttemptGamePercent"
@@ -152,7 +199,10 @@
                     android:textSize="18sp"
                     android:textStyle="italic" />
         </TableRow>
-        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <TextView
                     android:id="@+id/textViewStrikeRate"
@@ -161,38 +211,43 @@
                     android:text="\nStrike:\n"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+
             <ProgressBar
+                    android:id="@+id/progressBarStrike"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
                     android:indeterminate="false"
                     android:max="100"
                     android:progress="50"
-                    android:layout_centerInParent="true"
                     android:progressDrawable="@drawable/circular"
-                    android:secondaryProgress="100"
-                    android:id="@+id/progressBarStrike"/>
+                    android:secondaryProgress="100" />
 
             <TextView
                     android:id="@+id/textViewStrikeRatePercent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
+                    android:textColor="@color/com_facebook_blue"
                     android:textSize="18sp" />
+
             <TextView
+                    android:id="@+id/textViewBlank8"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textViewBlank8"/>
+                    android:layout_height="wrap_content" />
+
             <ProgressBar
+                    android:id="@+id/progressBarStrikeGame"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
                     android:indeterminate="false"
                     android:max="100"
                     android:progress="50"
-                    android:layout_centerInParent="true"
                     android:progressDrawable="@drawable/circular"
-                    android:secondaryProgress="100"
-                    android:id="@+id/progressBarStrikeGame"/>
+                    android:secondaryProgress="100" />
 
             <TextView
                     android:id="@+id/textViewGameStrikeRate"
@@ -202,7 +257,10 @@
                     android:textSize="18sp"
                     android:textStyle="italic" />
         </TableRow>
-        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <TextView
                     android:id="@+id/textViewFastest"
@@ -218,13 +276,20 @@
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     android:textAlignment="textEnd"
+                    android:textColor="@color/com_facebook_blue"
                     android:textSize="18sp" />
+
             <TextView
+                    android:id="@+id/textViewBlank9"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textViewBlank9" android:text="secs"/>
+                    android:layout_height="wrap_content"
+                    android:text="secs"
+                    android:textColor="@color/com_facebook_blue" />
+
             <TextView
+                    android:id="@+id/textViewBlank10"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textViewBlank10"/>
+                    android:layout_height="wrap_content" />
 
             <TextView
                     android:id="@+id/textViewGamesFastest"
@@ -234,11 +299,15 @@
                     android:textAlignment="textEnd"
                     android:textSize="18sp"
                     android:textStyle="italic" />
+
             <TextView
-                    android:text="secs"
+                    android:id="@+id/textView5"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textView5" android:textStyle="italic"/>
+                    android:layout_height="wrap_content"
+                    android:text="secs"
+                    android:textStyle="italic" />
         </TableRow>
+
         <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -257,13 +326,20 @@
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     android:textAlignment="textEnd"
+                    android:textColor="@color/com_facebook_blue"
                     android:textSize="18sp" />
+
             <TextView
+                    android:id="@+id/textViewBlank11"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textViewBlank11" android:text="secs"/>
+                    android:layout_height="wrap_content"
+                    android:text="secs"
+                    android:textColor="@color/com_facebook_blue" />
+
             <TextView
+                    android:id="@+id/textViewBlank12"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textViewBlank12"/>
+                    android:layout_height="wrap_content" />
 
             <TextView
                     android:id="@+id/textViewGameAverageResponse"
@@ -273,10 +349,13 @@
                     android:textAlignment="textEnd"
                     android:textSize="18sp"
                     android:textStyle="italic" />
+
             <TextView
-                    android:text="secs"
+                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textView2" android:textStyle="italic"/>
+                    android:layout_height="wrap_content"
+                    android:text="secs"
+                    android:textStyle="italic" />
         </TableRow>
     </TableLayout>
     <Button

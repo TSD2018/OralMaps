@@ -20,25 +20,57 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+            android:id="@+id/textViewTotalScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
     <ScrollView
             android:id="@+id/scrollView3"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toTopOf="@+id/buttonQuit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
+            app:layout_constraintTop_toBottomOf="@+id/textViewTotalScore">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clickable="false"
                 android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/textViewGameFinalScore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_final_score"
+                    android:textSize="24sp" />
+
+            <com.jjoe64.graphview.GraphView
+                    android:id="@+id/graphScore"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="100"
+                    android:clickable="false" />
 
             <TextView
                     android:id="@+id/textViewGameSummary"
