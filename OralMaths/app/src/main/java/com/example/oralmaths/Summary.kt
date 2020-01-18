@@ -1,7 +1,6 @@
 package com.example.oralmaths
 
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,7 +8,6 @@ import android.graphics.Color
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
@@ -17,18 +15,18 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import com.google.firebase.database.FirebaseDatabase
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.LegendRenderer
 import com.jjoe64.graphview.series.BarGraphSeries
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
-import java.util.jar.Manifest
 
 
 class Summary : AppCompatActivity() {
 
     private val tag = "Summary"
-    var canShare: Boolean = false
+    private var canShare: Boolean = false
 
     private lateinit var graphFinalScore: GraphView
 
@@ -81,7 +79,11 @@ class Summary : AppCompatActivity() {
 
         val analytics = AnswerAnalytics
 
-        tvTotalScore.text = getString(R.string.string_label_score) + analytics.getSumLevelScore(0).toString()
+        val score = analytics.getSumLevelScore(0)
+
+        tvTotalScore.text = getString(R.string.string_label_score) + score.toString()
+
+//        tvTotalScore.text = getString(R.string.string_label_score) + analytics.getSumLevelScore(0).toString()
         problemPresentedL1.text = analytics.totalProblems(1).toString()
         attemptedL1.text = analytics.attempted(1).toString()
         correctL1.text =analytics.totalRight(1).toString()
@@ -124,23 +126,40 @@ class Summary : AppCompatActivity() {
         fastestGame.text = String.format("%.1f", analytics.fastestTime(0, true))
         avgGame.text = String.format("%.1f", analytics.averageTime(false, 0, true))
 
+//        val gameScore: Int, val datetime: String,
+//        val gametime: Int, val totalProblems: Int, val totalRight: Int, val totalErrors: Int,
+//        val totalTimeout: Int, val average: Float, val fastest: Float, val slowest: Float,
+//        val lastLevelCompleted: String)
+
+
+        val firebaseRef = FirebaseDatabase.getInstance().getReference("scorecards")
+        val gameId = firebaseRef.push().key
+
+        val scoreCardRecord = ScoreCard(gameId!!, "anonymous", analytics.getScore(0), "",
+            analytics.gameTime(), analytics.totalProblems(0), analytics.totalRight(0), analytics.totalErrors(0),
+            analytics.totalTimeOut(0), analytics.averageTime(), analytics.fastestTime(0), analytics.slowestTime(0),
+            analytics.getLevelComplete())
+
+        firebaseRef.child(gameId).setValue(scoreCardRecord)
+
+
         graphFinalScore = findViewById<View>(R.id.graphScore) as GraphView
         val scoreSeries = BarGraphSeries<DataPoint>()
-        val score = analytics.getSumLevelScore(0)
+//        val score = analytics.getSumLevelScore(0)
         scoreSeries.appendData(DataPoint(1.0, score.toDouble()), true,5)
 //        scoreSeries.isAnimated = true
         scoreSeries.isDrawValuesOnTop = true
         scoreSeries.color = Color.RED
         scoreSeries.valuesOnTopColor = Color.RED
-        scoreSeries.valuesOnTopSize = 64F
+        scoreSeries.valuesOnTopSize = 48F
         scoreSeries.title = "My Sum.it Score"
 
         val scoreToBeatSeries = BarGraphSeries<DataPoint>()
         scoreToBeatSeries.appendData(DataPoint(2.0, score.toDouble() + 1.0),true,5 )
-        scoreToBeatSeries.color = Color.MAGENTA
+        scoreToBeatSeries.color = Color.BLUE
         scoreToBeatSeries.isDrawValuesOnTop = true
-        scoreToBeatSeries.valuesOnTopColor = Color.MAGENTA
-        scoreToBeatSeries.valuesOnTopSize = 64F
+        scoreToBeatSeries.valuesOnTopColor = Color.BLUE
+        scoreToBeatSeries.valuesOnTopSize = 48F
 
         scoreToBeatSeries.title = "To Beat & Win"
 
@@ -261,7 +280,7 @@ class Summary : AppCompatActivity() {
 
 
         bShare.setOnClickListener {
-            if (canShare == true) {
+            if (canShare) {
                 shareGraph(this@Summary)
      //           shareGraph(it.context)
 //                graph2.takeSnapshotAndShare(it.context, "StrikeGraph", "StikeRateView")
@@ -271,7 +290,7 @@ class Summary : AppCompatActivity() {
                 shareIntent.setPackage("com.whatsapp")
                 shareIntent.putExtra(
                     Intent.EXTRA_TEXT,
-                    "Can you beat my Sum.it score\nStrike Rate = ${analytics.getStrikeRate(0).toString()}, with an average time of ${avgGame.text}seconds per problem.\n\nIf you want to set a new challenge score for me, share me the new Sum.it score.\n\nGet better by scaling the Sum.it!"
+                    "Can you beat my Sum.it score\nStrike Rate = ${analytics.getStrikeRate(0)}, with an average time of ${avgGame.text}seconds per problem.\n\nIf you want to set a new challenge score for me, share me the new Sum.it score.\n\nGet better by scaling the Sum.it!"
                 )
                 shareIntent.type = "text/plain"
                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)

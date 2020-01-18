@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "186796431179",
+    "firebase_url": "https://sum-it-a66e1.firebaseio.com",
+    "project_id": "sum-it-a66e1",
+    "storage_bucket": "sum-it-a66e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186796431179:android:720622e605b976dd477ace",
+        "android_client_info": {
+          "package_name": "com.example.oralmaths"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186796431179-rmba32vq8eemubt19rlgqtbbge8mg7nm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.oralmaths",
+            "certificate_hash": "c10f5495478ae8eafc3470d5b57002fff1886e1b"
+          }
+        },
+        {
+          "client_id": "186796431179-bajsn3bnsgeab2kovds99hfcduekq9oa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNDjIPmE0j0wKtJR3EHz4wOUQSZ8Q9n5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186796431179-bajsn3bnsgeab2kovds99hfcduekq9oa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

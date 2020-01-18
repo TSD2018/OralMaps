@@ -1,8 +1,8 @@
 package com.example.oralmaths
 
 class ProblemRecord(
-    val userID: String,
     val gameID: String,
+    val userID: String,
     val dt: String,
     val argV1: Int,
     val argV2: Int,

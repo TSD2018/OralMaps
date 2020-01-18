@@ -8,14 +8,19 @@
         tools:context=".BannerActivity">
 
     <TextView
-            android:text="Welcome or Congratulations"
+            android:id="@+id/textViewWelcomeAndCongrats"
             android:layout_width="0dp"
             android:layout_height="43dp"
-            android:id="@+id/textViewWelcomeAndCongrats" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-            android:textAlignment="center" android:textSize="30sp" android:layout_marginTop="16dp"
-            app:layout_constraintTop_toTopOf="parent" android:textStyle="bold"/>
+            android:text="@string/string_welcome_and_congrats"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -25,23 +30,28 @@
             android:layout_marginBottom="16dp" app:layout_constraintBottom_toTopOf="@+id/buttonClose">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="vertical">
+
             <TextView
-                    android:text="Level Rules"
+                    android:id="@+id/textViewLevelRules"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textViewLevelRules" app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewWelcomeAndCongrats"
+                    android:text="@string/string_level_rules"
+                    android:textAllCaps="false"
+                    android:textSize="24sp"
+                    android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:textSize="24sp" android:textAllCaps="false"
-                    android:textStyle="italic"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewWelcomeAndCongrats" />
+
             <TextView
-                    android:text="Rules"
+                    android:id="@+id/textViewRules"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textViewRules" app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/string_rules"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewLevelRules"
-                    android:textSize="18sp"/>
+                    app:layout_constraintTop_toBottomOf="@+id/textViewLevelRules" />
         </LinearLayout>
     </ScrollView>
     <Button

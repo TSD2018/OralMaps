@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_ver">Ver 0.175 testing</string>
+    <string name="app_ver">Ver 0.182 testing</string>
     <string name="app_name">Sum.it</string>
     <string name="test_mode">yes</string>
     <string name="problems_per_level">7</string>
@@ -81,7 +81,15 @@
     <string name="strings_timeout">Timeout:</string>
     <string name="string_label_breakdown">Details</string>
     <string name="string_label_score">Score:</string>
-    <string name="string_label_scrore2">of a total</string>
+    <string name="string_label_score2">of a total</string>
     <string name="string_label_score3">level</string>
     <string name="string_final_score">Final Score</string>
+    <string name="string_welcome_and_congrats">Welcome or Congratulations</string>
+    <string name="string_level_rules">Level Rules</string>
+    <string name="string_rules">Rules</string>
+    <string name="string_analysis_data">Analysis Data</string>
+    <string name="string_problems">Problems</string>
+    <string name="string_average">Average</string>
+    <string name="sting_attempted">Attempted</string>
+    <string name="string_fastest">fastest</string>
 </resources>

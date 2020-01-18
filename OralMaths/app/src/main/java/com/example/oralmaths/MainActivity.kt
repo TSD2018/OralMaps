@@ -1,6 +1,5 @@
 package com.example.oralmaths
 
-import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -12,8 +11,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
 import android.support.annotation.RequiresApi
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Base64
 import android.util.Log
@@ -27,7 +24,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
-//import javax.swing.JColorChooser.showDialog
 
 
 private const val CURRENT_ARG1 = "Arg1"

@@ -18,6 +18,7 @@ object AnswerAnalytics {
     private var attemptCount        = intArrayOf   (0,   0,   0,   0,   0,   0)
     private var totalErrors         = intArrayOf   (0,   0,   0,   0,   0,   0)
     private var score               = doubleArrayOf(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+    private var levelComplete: String = ""
 
     override fun toString(): String {
         return """
@@ -115,7 +116,7 @@ object AnswerAnalytics {
         return fastestTime[l].toFloat()
     }
 
-    private fun slowestTime(l: Int = 0, sec: Boolean = false): Float {
+    fun slowestTime(l: Int = 0, sec: Boolean = false): Float {
         if (sec)
             return (slowestTime[l] / 1000).toFloat()
         return slowestTime[l].toFloat()
@@ -226,5 +227,28 @@ object AnswerAnalytics {
 
     fun addError(l: Int){
         totalErrors[l] += 1  // this will add timeouts as well
+    }
+
+    fun getScore(l: Int=0) : Double{
+        return score[l]
+    }
+
+    fun gameTime(): Long {
+        return timeTaken[0]
+    }
+
+    fun totalErrors(l: Int=0): Int{
+        if(l==0){
+            totalErrors[0] = totalErrors[1] + totalErrors[2] + totalErrors[3] + totalErrors[4] + totalErrors[5]
+        }
+        return totalErrors[l]
+    }
+
+    fun setLevelComplete(lComplete: String){
+        levelComplete = lComplete
+    }
+
+    fun getLevelComplete(): String {
+        return levelComplete
     }
 }
