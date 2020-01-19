@@ -4,10 +4,13 @@ package com.example.oralmaths
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.ColorMatrix
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
@@ -21,12 +24,14 @@ import com.jjoe64.graphview.LegendRenderer
 import com.jjoe64.graphview.series.BarGraphSeries
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
+import java.io.ByteArrayOutputStream
 
 
 class Summary : AppCompatActivity() {
 
     private val tag = "Summary"
     private var canShare: Boolean = false
+    private var score = 0
 
     private lateinit var graphFinalScore: GraphView
 
@@ -34,6 +39,7 @@ class Summary : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_summary)
 
+        val tvLevelCompleted: TextView =  findViewById(R.id.textViewLevelCompleted)
         val tvTotalScore: TextView = findViewById(R.id.textViewTotalScore)
         val problemPresentedL1: TextView = findViewById(R.id.textViewPresentedL1)
         val attemptedL1: TextView = findViewById(R.id.textViewAttemptedL1)
@@ -79,8 +85,9 @@ class Summary : AppCompatActivity() {
 
         val analytics = AnswerAnalytics
 
-        val score = analytics.getSumLevelScore(0)
+        score = analytics.getSumLevelScore(0)
 
+        tvLevelCompleted.text = level.getLevelCompletedString()
         tvTotalScore.text = getString(R.string.string_label_score) + score.toString()
 
 //        tvTotalScore.text = getString(R.string.string_label_score) + analytics.getSumLevelScore(0).toString()
@@ -149,16 +156,16 @@ class Summary : AppCompatActivity() {
         scoreSeries.appendData(DataPoint(1.0, score.toDouble()), true,5)
 //        scoreSeries.isAnimated = true
         scoreSeries.isDrawValuesOnTop = true
-        scoreSeries.color = Color.RED
-        scoreSeries.valuesOnTopColor = Color.RED
+        scoreSeries.color = Color.parseColor("#FFD81B60")   //Color.BLUE
+        scoreSeries.valuesOnTopColor = Color.parseColor("#FFD81B60")  // Color.BLUE
         scoreSeries.valuesOnTopSize = 48F
         scoreSeries.title = "My Sum.it Score"
 
         val scoreToBeatSeries = BarGraphSeries<DataPoint>()
         scoreToBeatSeries.appendData(DataPoint(2.0, score.toDouble() + 1.0),true,5 )
-        scoreToBeatSeries.color = Color.BLUE
+        scoreToBeatSeries.color = Color.LTGRAY
         scoreToBeatSeries.isDrawValuesOnTop = true
-        scoreToBeatSeries.valuesOnTopColor = Color.BLUE
+        scoreToBeatSeries.valuesOnTopColor = Color.LTGRAY
         scoreToBeatSeries.valuesOnTopSize = 48F
 
         scoreToBeatSeries.title = "To Beat & Win"
@@ -280,21 +287,43 @@ class Summary : AppCompatActivity() {
 
 
         bShare.setOnClickListener {
-            if (canShare) {
-                shareGraph(this@Summary)
-     //           shareGraph(it.context)
-//                graph2.takeSnapshotAndShare(it.context, "StrikeGraph", "StikeRateView")
-            } else {
-                val shareIntent = Intent()
-                shareIntent.action = Intent.ACTION_SEND
-                shareIntent.setPackage("com.whatsapp")
-                shareIntent.putExtra(
-                    Intent.EXTRA_TEXT,
-                    "Can you beat my Sum.it score\nStrike Rate = ${analytics.getStrikeRate(0)}, with an average time of ${avgGame.text}seconds per problem.\n\nIf you want to set a new challenge score for me, share me the new Sum.it score.\n\nGet better by scaling the Sum.it!"
-                )
-                shareIntent.type = "text/plain"
-                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//            if (canShare) {
+                val bmp = graphFinalScore.takeSnapshot()
+
+            val uriToImg = getImageUriFromBitmap (this@Summary, bmp)
+
+            val shareIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                setPackage("com.whatsapp")
+                putExtra(Intent.EXTRA_STREAM, uriToImg)
+                type = "image/jpeg"
+                putExtra(Intent.EXTRA_TEXT, "Set me a new challenge by beating my score $score.\nTry sum.it")
+                type = "text/plain"
             }
+
+
+//            val shareIntent = Intent().apply {
+//                action = Intent.ACTION_SEND
+//                setPackage("com.whatsapp")
+//                putExtra(Intent.EXTRA_TEXT, "Set me a new challenge by beating my score $score.\nTry sum.it")
+//                type = "text/plain"
+//            }
+            startActivity(shareIntent)
+
+
+//            if (canShare) {
+//                shareGraph(this@Summary)
+//            } else {
+//                val shareIntent = Intent()
+//                shareIntent.action = Intent.ACTION_SEND
+//                shareIntent.setPackage("com.whatsapp")
+//                shareIntent.putExtra(
+//                    Intent.EXTRA_TEXT,
+//                    "Can you beat my Sum.it score\nStrike Rate = ${analytics.getStrikeRate(0)}, with an average time of ${avgGame.text}seconds per problem.\n\nIf you want to set a new challenge score for me, share me the new Sum.it score.\n\nGet better by scaling the Sum.it!"
+//                )
+//                shareIntent.type = "text/plain"
+//                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//            }
         }
 
         val bQuit = findViewById<Button>(R.id.buttonQuit)
@@ -307,6 +336,13 @@ class Summary : AppCompatActivity() {
             setResult(RESULT_OK, data)
             finish()
         }
+    }
+
+    private fun getImageUriFromBitmap(context: Context, bitmap: Bitmap): Uri{
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Sum.it", null)
+        return Uri.parse(path.toString())
     }
 
     override fun onStart() {

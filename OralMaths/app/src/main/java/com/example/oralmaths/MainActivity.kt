@@ -6,9 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.media.ToneGenerator
-import android.os.Build
-import android.os.Bundle
-import android.os.CountDownTimer
+import android.os.*
+import android.os.VibrationEffect.DEFAULT_AMPLITUDE
 import android.speech.tts.TextToSpeech
 import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
@@ -71,6 +70,8 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         setContentView(R.layout.activity_main)
 
         printHashKey()
+
+        AnswerAnalytics.init()
 
         val bClose = findViewById<ImageButton>(R.id.imageButtonClose)
         bClose.setOnClickListener {
@@ -262,16 +263,26 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun startTimer(mCtx: Context) {
         timer = object : CountDownTimer(level.timerValue().toLong(), 1000) {
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onFinish() {
                 Log.d("TIMER", "onFinish.  Timer = ${--timerCtr}")
                 timerState = TimerState.NOT_RUNNING
 
-                val toneGen1 = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
+                val toneGen1 = ToneGenerator(AudioManager.STREAM_MUSIC, 85)
                 toneGen1.startTone(ToneGenerator.MAX_VOLUME, 150)
+
+                val vibrator : Vibrator = mCtx.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                val bVibrate = vibrator.hasVibrator()
+                if(bVibrate){
+                    vibrator.vibrate(VibrationEffect.createOneShot(100, DEFAULT_AMPLITUDE))
+                }
+
 
                 val analytics = AnswerAnalytics
                 analytics.addToTimeOut(level.myLevelNumber())
                 processNext(mCtx)
+                toneGen1.release()
+
             }
 
             override fun onTick(millisUntilFinished: Long) {

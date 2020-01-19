@@ -59,6 +59,23 @@ object AnswerAnalytics {
 
     }
 
+    fun init()
+    {
+        //                                  0    1    2    3    4    5
+        timeTaken           = longArrayOf  (0,   0,   0,   0,   0,   0)
+        timeTakenForRight   = longArrayOf  (0,   0,   0,   0,   0,   0)
+        totalProblems       = intArrayOf   (0,   0,   0,   0,   0,   0)
+        totalProblemsRight  = intArrayOf   (0,   0,   0,   0,   0,   0)
+        totalTimeout        = intArrayOf   (0,   0,   0,   0,   0,   0)
+        timerValue          = intArrayOf   (0,   0,   0,   0,   0,   0)
+        fastestTime         = longArrayOf  (0,   0,   0,   0,   0,   0)
+        slowestTime         = longArrayOf  (0,   0,   0,   0,   0,   0)
+        attemptCount        = intArrayOf   (0,   0,   0,   0,   0,   0)
+        totalErrors         = intArrayOf   (0,   0,   0,   0,   0,   0)
+        score               = doubleArrayOf(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        levelComplete       = ""
+    }
+
     fun getSumLevelScore(l: Int=0) : Int{
         return score[l].toInt()
     }
